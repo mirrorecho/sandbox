@@ -3,6 +3,8 @@ import copy
 
 score = Score([])
 
+melody_fingers = (0, 0, )
+
 # objects to represent important musical ideas
 
 # what can the computer do that's BETTER...?

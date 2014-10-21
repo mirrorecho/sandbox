@@ -3,12 +3,8 @@
 	[
 		{
 			"follow_symlinks": true,
-			"path": "abjad"
-		},
-		{
-			"follow_symlinks": true,
-			"path": "/Users/randallwest/Code/venvs/abjad_2.15/lib/python3.4/site-packages/abjad/demos"
+			"path": "."
 		}
 	],
-	"virtualenv": "/Users/randallwest/Code/venvs/abjad_2.15"
+	"virtualenv": "/home/randall/Code/venvs/abjad_2.15"
 }
