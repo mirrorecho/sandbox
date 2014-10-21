@@ -74,7 +74,7 @@ s.meter;
 )
 
 (
-y = Synth(\bloo, [\freq, 80]);
+y = Synth(\bloo, [\freq, 800]);
 )
 
 

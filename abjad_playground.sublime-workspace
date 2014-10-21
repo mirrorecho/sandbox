@@ -27,7 +27,7 @@
 			"file": "abjad/ghost.py",
 			"settings":
 			{
-				"buffer_size": 1150,
+				"buffer_size": 1224,
 				"line_ending": "Unix"
 			}
 		}
@@ -180,23 +180,25 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1150,
+						"buffer_size": 1224,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								846,
-								846
+								398,
+								398
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.tmLanguage"
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 254.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
