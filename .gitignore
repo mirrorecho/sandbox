@@ -1,4 +1,33 @@
 ##########################################
+# sublime text ignores
+
+*.sublime-workspace
+
+##########################################
+# all zip files
+
+*.gz
+*.zip
+*.tar
+*.tar.gz
+
+##########################################
+# all images/video/audio
+
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.wav
+*.aif
+*.mpg
+*.mpeg
+*.mp3
+*.mp4
+*.avi
+*.wmv
+
+##########################################
 # SuperCollider gitignore (from https://github.com/supercollider/supercollider/blob/master/.gitignore)
 
 # mac related files
