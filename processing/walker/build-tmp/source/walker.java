@@ -1,3 +1,19 @@
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class walker extends PApplet {
+
 
 ArrayList<WalkerCluster> walkerClusters = new ArrayList<WalkerCluster>();
 //int numWalkers = 99;
@@ -5,7 +21,7 @@ ArrayList<WalkerCluster> walkerClusters = new ArrayList<WalkerCluster>();
 int specialOpacity = 220;
 int minOpacity = 11; 
  
-void setup() {
+public void setup() {
   size(1280, 720);
   background(255);
   
@@ -16,7 +32,7 @@ void setup() {
   
 }
 
-void mousePressed() {
+public void mousePressed() {
   int startR = ceil(random(0, 255));
   int startG = ceil(random(0, 255));
   int startB = ceil(random(0, 255));
@@ -24,14 +40,14 @@ void mousePressed() {
   walkerClusters.add(new WalkerCluster(mouseX, mouseY, startR, startG, startB, startOp, 22));
 }
 
-void draw() {
+public void draw() {
   for (int i = walkerClusters.size()-1; i >= 0; i--) {
     walkerClusters.get(i).stepMany();
   }  
 }
 
-void keyPressed() {
-  if (key == ' ') saveFrame("sketches/walker-###.png");
+public void keyPressed() {
+  if (key == ' ') saveFrame("sketches/0walker-###.png");
   if (key =='s') walkerClusters.clear();
   if (key =='d') {
     for (int i = walkerClusters.size()-1; i >= 0; i--) {
@@ -62,7 +78,7 @@ class WalkerCluster {
       walkers[i] = new Walker(startX, startY, startR, startG, startB, ceil(startOp *2/3), false);
   }
   
-  void stepMany() {
+  public void stepMany() {
     boolean moveCluster = false;
     if (random(299) < 1) moveCluster = true;
     for (int i=0; i<walkers.length; i++) {
@@ -122,7 +138,7 @@ class Walker {
     shadeB = startB;
   }
   
-  void step() {
+  public void step() {
     
    
     if (imSpecial) shadeG += floor(random(-1,2)); else shadeG += floor(random(-2,3));;
@@ -187,7 +203,7 @@ class Walker {
     if (y>height) y-=height; else if (y<0) y+=height;
   }
   
-  void show() {
+  public void show() {
     stroke(shadeR, shadeG, shadeB, opacity);
     point(x, y);
     stroke(shadeR, shadeG, shadeB, round(opacity/3));
@@ -205,3 +221,12 @@ class Walker {
 } 
  
  
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "walker" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
+}
