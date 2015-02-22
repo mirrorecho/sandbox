@@ -1,3 +1,5 @@
+import java.util.*;
+Random gen = new Random();
 
 ArrayList<WalkerCluster> walkerClusters = new ArrayList<WalkerCluster>();
 //int numWalkers = 99;
@@ -140,7 +142,6 @@ class Walker {
     if (shadeB>255) shadeB = 255;
 
     if (imSpecial) opacity+= floor(random(-1,2));
-    
     else opacity-=1;
     
     if (opacity<minOpacity) opacity=minOpacity;
@@ -153,18 +154,18 @@ class Walker {
    
    
      if (imSpecial || random(4)<1) {
-       stepX=floor(random(xPref-2, xPref+3)); 
-       stepY=floor(random(yPref-1, yPref+2));
+       stepX=round(floor(random(xPref-1, xPref+2)) * (float)gen.nextGaussian() ); 
+       stepY=round(floor(random(yPref-1, yPref+2)) * (float)gen.nextGaussian() );
      } else {
-       if (random(2)<1) stepX=floor(random(-1, 2)); else stepX=0; 
-       if (random(2)<1) stepY=floor(random(-1, 2)); else stepY=0;
+       if (random(2)<1) stepX= round( floor(random(-1, 2)) * (float)gen.nextGaussian() ); else stepX=0; 
+       if (random(2)<1) stepY= round( floor(random(-1, 2)) * (float)gen.nextGaussian() ); else stepY=0;
      }
      
      // ADDITIONALLY... let's make % chance the walker will move towards the mouse
-     if (random(9)<1) {
-       if (mouseX < x) stepX -=1; else stepX +=1; 
-       if (mouseY < y) stepY -=1; else stepY +=1;
-     }
+     // if (random(9)<1) {
+     //   if (mouseX < x) stepX -=1; else stepX +=1; 
+     //   if (mouseY < y) stepY -=1; else stepY +=1;
+     // }
      
      
      
