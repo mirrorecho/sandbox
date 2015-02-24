@@ -48,10 +48,11 @@ common/Packager/SuperCollider*.tar.gz
 common/Packager/SuperCollider*.dmg
 
 #build directories
-/build*
+/collider/build*
 
 *~
 *.orig
+
 
 ##########################################
 # Processing gitignore
@@ -63,6 +64,11 @@ application.linux64
 application.windows32
 application.windows64
 application.macosx
+
+##########################################
+# additional ignores for build-tmp used by processing-java
+build-tmp
+
 
 ##########################################
 # Java gitignore (used by processing)

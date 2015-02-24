@@ -23,33 +23,33 @@
 int SCRIBBLE = 0;
 int HATCHING = 1;
 
-void setup(){
-  size(200, 200);
-  background(0);
+// void setup(){
+//   size(200, 200);
+//   background(0);
 
-  // create arrays to hold x, y coords
-  float[]x = new float[4];
-  float[]y  = new float[4];
-  // create a convenient 2-dimensional 
-  // array to hold x, y arrays
-  float[][]xy = {x, y};
+//   // create arrays to hold x, y coords
+//   float[]x = new float[4];
+//   float[]y  = new float[4];
+//   // create a convenient 2-dimensional 
+//   // array to hold x, y arrays
+//   float[][]xy = {x, y};
 
-  // record points
-  // x positions     
-  xy[0][0] = 25;
-  xy[0][1] = 175;
-  xy[0][2] = 175;
-  xy[0][3] = 25;
+//   // record points
+//   // x positions     
+//   xy[0][0] = 25;
+//   xy[0][1] = 175;
+//   xy[0][2] = 175;
+//   xy[0][3] = 25;
 
-  // y positions
-  xy[1][0] = 25;
-  xy[1][1] = 25;
-  xy[1][2] = 175;
-  xy[1][3] = 175;
+//   // y positions
+//   xy[1][0] = 25;
+//   xy[1][1] = 25;
+//   xy[1][2] = 175;
+//   xy[1][3] = 175;
 
-  // call plotting function
-  makeRect(xy);
-}
+//   // call plotting function
+//   makeRect(xy);
+// }
 
 void makeRect(float[][]pts){
   stroke(255);
