@@ -4,14 +4,11 @@ Random gen = new Random();
 ArrayList<WalkerCluster> walkerClusters = new ArrayList<WalkerCluster>();
 //int numWalkers = 99;
  
-int specialOpacity = 220;
-int minOpacity = 11; 
-
-int WIDTH = 800;
-int HEIGHT = 600;
+int specialOpacity = 122;
+int minOpacity = 4; 
  
 void setup() {
-  size(WIDTH, HEIGHT);
+  size(800, 600);
   background(222);
   
  
@@ -44,8 +41,8 @@ void keyPressed() {
       WalkerCluster myCluster = walkerClusters.get(i);
       walkerClusters.add(
         new WalkerCluster(
-          myCluster.walkers[0].x, 
-          myCluster.walkers[0].y, 
+          myCluster.walkers[0].location.x, 
+          myCluster.walkers[0].location.y, 
           myCluster.walkers[0].shadeR, 
           myCluster.walkers[0].shadeG, 
           myCluster.walkers[0].shadeB,
@@ -60,7 +57,7 @@ void keyPressed() {
 class WalkerCluster {
  Walker[] walkers;
   
-  WalkerCluster(int startX, int startY, int startR, int startG, int startB, int startOp, int numWalkers) {
+  WalkerCluster(float startX, float startY, int startR, int startG, int startB, int startOp, int numWalkers) {
     walkers = new Walker[numWalkers];
     walkers[0] = new Walker(startX, startY, startR, startG, startB, startOp, true);
     for (int i=1; i<numWalkers; i++) 
@@ -76,15 +73,13 @@ class WalkerCluster {
      
       if (moveCluster && i>0) { //&& random(2) < 1) {
         // move other walkers to the 0th (special!) one:
-        walkers[i].x = walkers[0].x; //+ floor(random(-3,4)); ;
-        walkers[i].y = walkers[0].y; //+ floor(random(-3,4)); ;
+        walkers[i].location.x = walkers[0].location.x; //+ floor(random(-3,4)); ;
+        walkers[i].location.y = walkers[0].location.y; //+ floor(random(-3,4)); ;
       
         walkers[i].shadeR = walkers[0].shadeR;
         walkers[i].shadeG = walkers[0].shadeG;
         walkers[i].shadeB = walkers[0].shadeB;
         walkers[i].opacity = ceil(walkers[0].opacity *2/3);
-        walkers[i].xPref = walkers[0].xPref;
-        walkers[i].yPref = walkers[0].yPref;
       }
       walkers[i].step();
       walkers[i].show();
@@ -101,34 +96,35 @@ class Walker {
   int shadeB;
   int opacity = specialOpacity;
   
-  int x;
-  int y;
-  
-  int xPref;
-  int yPref;
-  
-  int stepX;
-  int stepY;
+  PVector location;
+  PVector velocity;
 
   float xNoiseInput;
   float yNoiseInput;
-  int xOff;
-  int yOff;
+
+  float stepRange = 4.0;
+
+  // int xOff;
+  // int yOff;
+
   float noiseInputIncrement;
   
   boolean imSpecial;
   
-  Walker(int startX, int startY, int startR, int startG, int startB, int startOp, boolean isSpecial) {
+  Walker(float startX, float startY, int startR, int startG, int startB, int startOp, boolean isSpecial) {
     //x = random(width);
     //y = random(height);
     imSpecial = isSpecial;
-   
-    xNoiseInput = random(122.0);
-    yNoiseInput = random(122.0);
-    xOff = startX - round(map(noise(xNoiseInput), 0, 1, 0, WIDTH));
-    yOff = startY - round(map(noise(yNoiseInput), 0, 1, 0, HEIGHT));
 
-    noiseInputIncrement = 0.001;
+    location = new PVector(startX, startY);
+    velocity = new PVector(0, 0);
+   
+    if (imSpecial) stepRange = 2.0; 
+
+    xNoiseInput = random(9922.0);
+    yNoiseInput = random(9922.0);
+    
+    noiseInputIncrement = 0.0006;
 
     // xPref = floor(random(-1,2));
     // yPref = floor(random(-1,2));
@@ -202,19 +198,22 @@ class Walker {
     // x += stepX;
     // y += stepY;
 
-    x = round(map(noise(xNoiseInput), 0, 1, 0, WIDTH)) + xOff;
-    y = round(map(noise(yNoiseInput), 0, 1, 0, HEIGHT)) + yOff;
+    velocity.x = (noise(xNoiseInput) - 0.5) * stepRange;
+    velocity.y = (noise(yNoiseInput) - 0.5) * stepRange;
+    location.add(velocity);
 
     xNoiseInput += noiseInputIncrement;
     yNoiseInput += noiseInputIncrement;
     
    
     // cross over to the other side of the screen if we reach the edge:
-    if (x>width) x-=width; else if (x<0) x+=width;
-    if (y>height) y-=height; else if (y<0) y+=height;
+    if (location.x>width) location.x-=width; else if (location.x<0) location.x+=width;
+    if (location.y>height) location.y-=height; else if (location.y<0) location.y+=height;
   }
   
   void show() {
+    int x = round(location.x);
+    int y = round(location.y);
     stroke(shadeR, shadeG, shadeB, opacity);
     point(x, y);
     stroke(shadeR, shadeG, shadeB, round(opacity/3));
