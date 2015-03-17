@@ -6,10 +6,13 @@ ArrayList<WalkerCluster> walkerClusters = new ArrayList<WalkerCluster>();
  
 int specialOpacity = 220;
 int minOpacity = 11; 
+
+int WIDTH = 800;
+int HEIGHT = 600;
  
 void setup() {
-  size(1280, 720);
-  background(255);
+  size(WIDTH, HEIGHT);
+  background(222);
   
  
  //for (int x=0; x<numWalkers; x++) {
@@ -106,6 +109,12 @@ class Walker {
   
   int stepX;
   int stepY;
+
+  float xNoiseInput;
+  float yNoiseInput;
+  int xOff;
+  int yOff;
+  float noiseInputIncrement;
   
   boolean imSpecial;
   
@@ -114,11 +123,18 @@ class Walker {
     //y = random(height);
     imSpecial = isSpecial;
    
-    xPref = floor(random(-1,2));
-    yPref = floor(random(-1,2));
+    xNoiseInput = random(122.0);
+    yNoiseInput = random(122.0);
+    xOff = startX - round(map(noise(xNoiseInput), 0, 1, 0, WIDTH));
+    yOff = startY - round(map(noise(yNoiseInput), 0, 1, 0, HEIGHT));
+
+    noiseInputIncrement = 0.001;
+
+    // xPref = floor(random(-1,2));
+    // yPref = floor(random(-1,2));
     
-    x = startX;
-    y = startY;
+    // x = startX;
+    // y = startY;
     shadeR = startR;
     shadeG = startG;
     shadeB = startB;
@@ -147,19 +163,23 @@ class Walker {
     if (opacity<minOpacity) opacity=minOpacity;
     if (opacity>specialOpacity) opacity=specialOpacity;
     
-    if (random(2)<1) xPref = floor(random(-1,2));
+
+    // stepX = round(map(noise(xNoiseInput), 0, 1, -3, 3));
+    // stepY = round(map(noise(yNoiseInput), 0, 1, -3, 3));
+
+    // if (random(2)<1) xPref = floor(random(-1,2));
    
    
-     if (random(2)<1) yPref = floor(random(-1,2));        
+    //  if (random(2)<1) yPref = floor(random(-1,2));        
    
    
-     if (imSpecial || random(4)<1) {
-       stepX=round(floor(random(xPref-1, xPref+2)) * (float)gen.nextGaussian() ); 
-       stepY=round(floor(random(yPref-1, yPref+2)) * (float)gen.nextGaussian() );
-     } else {
-       if (random(2)<1) stepX= round( floor(random(-1, 2)) * (float)gen.nextGaussian() ); else stepX=0; 
-       if (random(2)<1) stepY= round( floor(random(-1, 2)) * (float)gen.nextGaussian() ); else stepY=0;
-     }
+    //  if (imSpecial || random(4)<1) {
+    //    stepX=round(floor(random(xPref-1, xPref+2)) * (float)gen.nextGaussian() ); 
+    //    stepY=round(floor(random(yPref-1, yPref+2)) * (float)gen.nextGaussian() );
+    //  } else {
+    //    if (random(2)<1) stepX= round( floor(random(-1, 2)) * (float)gen.nextGaussian() ); else stepX=0; 
+    //    if (random(2)<1) stepY= round( floor(random(-1, 2)) * (float)gen.nextGaussian() ); else stepY=0;
+    //  }
      
      // ADDITIONALLY... let's make % chance the walker will move towards the mouse
      // if (random(9)<1) {
@@ -179,8 +199,14 @@ class Walker {
       else stepY = floor(random(-1,3));
     */
 
-    x += stepX;
-    y += stepY;
+    // x += stepX;
+    // y += stepY;
+
+    x = round(map(noise(xNoiseInput), 0, 1, 0, WIDTH)) + xOff;
+    y = round(map(noise(yNoiseInput), 0, 1, 0, HEIGHT)) + yOff;
+
+    xNoiseInput += noiseInputIncrement;
+    yNoiseInput += noiseInputIncrement;
     
    
     // cross over to the other side of the screen if we reach the edge:
