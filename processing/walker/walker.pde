@@ -4,13 +4,21 @@ Random gen = new Random();
 ArrayList<WalkerCluster> walkerClusters = new ArrayList<WalkerCluster>();
 //int numWalkers = 99;
  
-int specialOpacity = 122;
-int minOpacity = 22; 
+int specialOpacity = 66;
+int minOpacity = 1; 
 int blurIter = 0;
+int maxR = 9;
+int maxG = 122;
+int maxB = 222;
+int minR = 0;
+int minG = 0;
+int minB = 0;
+float noiseInputIncrementN = 0.008;
+float noiseInputIncrementS = 0.002;
  
 void setup() {
-  size(1280, 920);
-  background(22);
+  size(800, 600);
+  background(222,222,244);
   
  
  //for (int x=0; x<numWalkers; x++) {
@@ -20,9 +28,9 @@ void setup() {
 }
 
 void mousePressed() {
-  int startR = ceil(random(0, 255));
-  int startG = ceil(random(0, 255));
-  int startB = ceil(random(0, 255));
+  int startR = ceil(random(minR, maxR));
+  int startG = ceil(random(minG, maxG));
+  int startB = ceil(random(minB, maxB));
   int startOp = minOpacity*2;
   walkerClusters.add(new WalkerCluster(mouseX, mouseY, startR, startG, startB, startOp, 22));
 }
@@ -31,17 +39,20 @@ void draw() {
   for (int i = walkerClusters.size()-1; i >= 0; i--) {
     walkerClusters.get(i).stepMany();
   }  
-    if (blurIter == 299) {
-      filter(BLUR, 1);
-      blurIter = 0;
-    }
-    else blurIter +=1;
+    // if (blurIter == 499) {
+    //   filter(BLUR, 1);
+    //   blurIter = 0;
+    // }
+    // else blurIter +=1;
     
 }
 
 void keyPressed() {
   if (key == ' ') saveFrame("sketches/walker-###.png");
   if (key =='s') walkerClusters.clear();
+  if (key == 'b') {
+    filter(BLUR, 2);
+  }
   if (key =='d') {
     for (int i = walkerClusters.size()-1; i >= 0; i--) {
       
@@ -109,12 +120,11 @@ class Walker {
   float xNoiseInput;
   float yNoiseInput;
 
-  float stepRange = 4.0;
+  float stepRange = 2.0;
+  float noiseInputIncrement = noiseInputIncrementN;
 
   // int xOff;
   // int yOff;
-
-  float noiseInputIncrement;
   
   boolean imSpecial;
   
@@ -126,12 +136,13 @@ class Walker {
     location = new PVector(startX, startY);
     velocity = new PVector(0, 0);
    
-    if (imSpecial) stepRange = 2.0; 
+    if (imSpecial) {
+      stepRange = 4.0; 
+      noiseInputIncrement = noiseInputIncrementS;
+    }
 
     xNoiseInput = random(9922.0);
     yNoiseInput = random(9922.0);
-    
-    noiseInputIncrement = 0.0006;
 
     // xPref = floor(random(-1,2));
     // yPref = floor(random(-1,2));
@@ -145,23 +156,22 @@ class Walker {
   
   void step() {
     
+    if (!imSpecial) shadeR += floor(random(-1,2)); else shadeR += floor(random(-2,3));;
+    if (shadeR<minR) shadeR = minR;
+    if (shadeR>maxR) shadeR = maxR;
+    //if (shadeR>shadeG) shadeR = shadeG;
    
-    if (imSpecial) shadeG += floor(random(-1,2)); else shadeG += floor(random(-2,3));;
-    if (shadeG<0) shadeG = 0;
-    if (shadeG>255) shadeG = 255;
+    if (!imSpecial) shadeG += floor(random(-1,2)); else shadeG += floor(random(-2,3));;
+    if (shadeG<minG) shadeG = minG;
+    if (shadeG>maxG) shadeG = maxG;
     //if (shadeG>shadeR) shadeG = shadeR;
     
-    if (imSpecial) shadeR += floor(random(-1,2)); else shadeR += floor(random(-2,3));;
-    if (shadeR<0) shadeR = 0;
-    if (shadeR>255) shadeR = 255;
-    //if (shadeR>shadeG) shadeR = shadeG;
-    
-    if (imSpecial) shadeB += floor(random(-1,2)); else shadeB += floor(random(-2,3));;
-    if (shadeB<0) shadeB = 0;
-    if (shadeB>255) shadeB = 255;
+    if (!imSpecial) shadeB += floor(random(-1,2)); else shadeB += floor(random(-2,3));;
+    if (shadeB<minB) shadeB = minB;
+    if (shadeB>maxB) shadeB = maxB;
 
     if (imSpecial) opacity+= floor(random(-1,2));
-    else opacity-=1;
+    else if (random(2)<1) opacity-=1;
     
     if (opacity<minOpacity) opacity=minOpacity;
     if (opacity>specialOpacity) opacity=specialOpacity;
