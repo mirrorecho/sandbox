@@ -5,11 +5,12 @@ ArrayList<WalkerCluster> walkerClusters = new ArrayList<WalkerCluster>();
 //int numWalkers = 99;
  
 int specialOpacity = 122;
-int minOpacity = 4; 
+int minOpacity = 22; 
+int blurIter = 0;
  
 void setup() {
-  size(800, 600);
-  background(222);
+  size(1280, 920);
+  background(22);
   
  
  //for (int x=0; x<numWalkers; x++) {
@@ -30,6 +31,12 @@ void draw() {
   for (int i = walkerClusters.size()-1; i >= 0; i--) {
     walkerClusters.get(i).stepMany();
   }  
+    if (blurIter == 299) {
+      filter(BLUR, 1);
+      blurIter = 0;
+    }
+    else blurIter +=1;
+    
 }
 
 void keyPressed() {
