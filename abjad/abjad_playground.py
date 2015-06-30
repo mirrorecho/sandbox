@@ -12,6 +12,22 @@ score = Score([])
 
 # TRY TO THINK MUSICALLY THROUGH THE CODE AND MOVEMENT STRUCTURES
 
+# class represents a musical idea...
+# - a form of "short score"?
+
+# TECHNICAL STUFF:
+# - easily add & remove staves
+# - easily create non-metered music
+
+# HARMONIC PALETTE...
+# 2 or 3 random walks through cicle of 5ths (perlin noise or regular noise?) + harmonics above that.
+# (show these all in a row)
+
+# SOLO FLUTE PIECE
+
+
+
+# cloudify (KEEP)
 
 note = Note("c'4")
 
