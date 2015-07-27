@@ -2,8 +2,10 @@
 	"folders":
 	[
 		{
-			"follow_symlinks": true,
 			"path": "."
+		},
+		{
+			"path": "/home/randall/Code/mirrorecho/supercollider-workshop"
 		}
 	],
 	"virtualenv": "/home/randall/Code/venvs/abjad_2.15"
