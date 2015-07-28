@@ -15,19 +15,53 @@ play{a=SinOsc.ar(LFNoise0.ar(10).range(100,1e4),0,0.05)*Decay.kr(Dust.kr(1));GVe
 
 
 // saw changes ring freq with overlapping polyrhythms
-play{FreeVerb2.ar(*Splay.ar(16.collect{|i|Ringz.ar(Decay.ar(Impulse.ar(r=i+1/4),1/r,Crackle.ar/6),LFSaw.ar(f=r/(i+2*3),1)+2*3**4,f)},0.4))}
+play{FreeVerb2.ar(*Splay.ar({|i|Ringz.ar(Decay.ar(Impulse.ar(r=i+1/4),1/r,Crackle.ar/6),LFSaw.ar(f=r/(i+2*3),1)+2*3**4,f)}!16,0.4))}
+
 
 // Pulse waves controlling freq:
-g=2*f=88;l=LFPulse;play{y=XLine.kr(1,6,f);CombL.ar(Saw.ar(l.ar(1!2)*f+f+(l.ar(y/9)*f+g)+(l.ar(y)*f)+(l.ar(1/y)*g)+(l.ar(y*2)*g))*(6-y)/9)}
+g=2*f=88;l=LFPulse;play{y=XLine.kr(1,6,f);CombL.ar(Saw.ar(l.ar(1!2)*f+f+(l.ar(y/9)*f+g)+(l.ar(y)*f)+(l.ar(1/y)*g)+(l.ar(y*2)*g))*(6-y)/22)}
 
 // resonators in stacked fifths fading in and out
-play{CombN.ar(Splay.ar(DynKlank.ar(`[3/2**(8..0)*440,9.collect{|b|SinOsc.ar(b/2+1/444)/(9-b)/6}.abs,1],PinkNoise.ar/18+Dust2.ar(1!2)),0.4))}
+play{CombN.ar(Splay.ar(DynKlank.ar(`[3/2**(8..0)*440,{|b|SinOsc.ar(b/2+1/444)/(9-b)/6}!9.abs,1],PinkNoise.ar/29+Dust2.ar(2!2)),0.4))}
 
 
 12.collect{|i|(i+2*3)}
 12.collect{|i|(i+2**2)}
 
+(play{
+Saw.ar*MouseY.kr(0,4)fold2:0.4
+})
 
+{ QuadC.ar(MouseX.kr(200, 8800)) * 0.3 }.play(s);
+
+Env([0,0.4,0,0.6],0.5,\step).ar.
+
+b=1;
+b=b+1;
+0.4.rand;
+
+p=Env.perc;
+p(1, 0.01, 1, 4)
+
+a=(1..8).scramble/8;
+Array.rand(7, 0.0, 1.0);
+
+1+1*3**5
+0+1*3**5
+
+
+Env.perc(1, 0.01, 1, 4).ar;
+Env.pairs({ { 1.0.rand } ! 2 } ! 16).plot;
+
+(
+play{
+e=Env.perc(3, 0.01, 1, 4).ar;
+QuadN.ar(e+1*3**5)*e/3
+// WhiteNoise.ar*e
+    
+// Env.circle({0.4.rand}!8,(1..8).scramble/8).ar
+}
+)
 
 s.freeAll;
 
