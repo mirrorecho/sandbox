@@ -17,16 +17,36 @@ play{a=SinOsc.ar(LFNoise0.ar(10).range(100,1e4),0,0.05)*Decay.kr(Dust.kr(1));GVe
 // saw changes ring freq with overlapping polyrhythms
 play{FreeVerb2.ar(*Splay.ar({|i|Ringz.ar(Decay.ar(Impulse.ar(r=i+1/4),1/r,Crackle.ar/6),LFSaw.ar(f=r/(i+2*3),1)+2*3**4,f)}!16,0.4))}
 
-
 // Pulse waves controlling freq:
 g=2*f=88;l=LFPulse;play{y=XLine.kr(1,6,f);CombL.ar(Saw.ar(l.ar(1!2)*f+f+(l.ar(y/9)*f+g)+(l.ar(y)*f)+(l.ar(1/y)*g)+(l.ar(y*2)*g))*(6-y)/22)}
 
 // resonators in stacked fifths fading in and out
 play{CombN.ar(Splay.ar(DynKlank.ar(`[3/2**(8..0)*440,{|b|SinOsc.ar(b/2+1/444)/(9-b)/6}!9.abs,1],PinkNoise.ar/29+Dust2.ar(2!2)),0.4))}
 
+// delays time a series of 3 sweeps and saw tones
+play{GVerb.ar(sum({|i|e=Env.perc(4,0,1,4).ar;DelayN.ar(QuadN.ar(e+1*3**j=i+3)*e+(Saw.ar(5**j,Env([0,0,1,0],[4,0.1,1]).kr)),i*8,i*8)}!3)/8)}
+s.reboot; // delays use a lot of resources... may need to reboot after.
+
+// choose between saw waves at various harmonics, with sweep filter and echo
+play{GVerb.ar(CombN.ar(RLPF.ar(TChoose.ar(Dust.ar(99),{|i|Saw.ar(i+4*22)}!9),LFNoise1.kr(1)+2*3**4,1)*Env([0,1,1,0],[9,22,9]).ar/9,4,4,48))}
+
 
 12.collect{|i|(i+2*3)}
 12.collect{|i|(i+2**2)}
+
+f=1;
+f=f*2;
+
+-1+2*3**4;
+1+2*3**4;
+
+{|i|Saw.ar(i+1*99)}!4
+
+play{Saw.ar*Env([1,1,0],[8,6]).ar/4};
+
+play{GVerb.ar(QuadC.ar(880)/9)}
+
+9.rand+1/(9.rand+1);
 
 (play{
 Saw.ar*MouseY.kr(0,4)fold2:0.4
@@ -68,19 +88,34 @@ Pulse
 
 CombC
 
+
+
+sum({|i|i}!7);
+
 (
 play{
-e=Env.perc(4,0.01,1,4).ar;
-QuadN.ar(e+1*3**5)*e/2+
-CombC.ar(
-Pulse.ar(222,0.6,Env({0.2.rand}!44*.x[1,0],[3]++(0.1!87),\step).kr,0.01),
-		1,1,44);
-
-	// WhiteNoise.ar*e
-
-// Env.circle({0.4.rand}!8,(1..8).scramble/8).ar
+sum({|i|e=Env.perc(4,0,1,4).ar;
+DelayN.ar(
+QuadN.ar(e+1*3**j=i+3)*e+
+(Saw.ar(5**j,Env([0,0,1,0],[3.9,0.01,3]).kr)/2),
+i*8,i*8
+)
+}!3)!2/2
 }
 )
+
+i=4;
+0+2*5**j=i+3/2;
+1+2*5**j=i+3/2;
+14**j;
+
+5**4;
+5**5;
+
+{|i|i}!3
+{0.2.rand}!22*.x[0,1].[8]++(0.1!43)
+
+0**1;
 
 s.freeAll;
 
