@@ -17,8 +17,10 @@ play{a=SinOsc.ar(LFNoise0.ar(10).range(100,1e4),0,0.05)*Decay.kr(Dust.kr(1));GVe
 // saw changes ring freq with overlapping polyrhythms
 play{FreeVerb2.ar(*Splay.ar({|i|Ringz.ar(Decay.ar(Impulse.ar(r=i+1/4),1/r,Crackle.ar/6),LFSaw.ar(f=r/(i+2*3),1)+2*3**4,f)}!16,0.4))}
 
+play{FreeVerb2.ar(*Splay.ar({|i|Formlet.ar(Impulse.ar(r=i+1/8),LFSaw.ar(f=r/(i+2*3),1)+2*3**4,0.01,1/r)}!12,0.4))}
+
 // Pulse waves controlling freq:
-g=2*f=88;l=LFPulse;play{y=XLine.kr(1,6,f);CombL.ar(Saw.ar(l.ar(1!2)*f+f+(l.ar(y/9)*f+g)+(l.ar(y)*f)+(l.ar(1/y)*g)+(l.ar(y*2)*g))*(6-y)/22)}
+g=2*f=88;l=LFPulse;play{y=XLine.kr(1,6,f);CombC.ar(Saw.ar(l.ar(1!2)*f+f+(l.ar(y/9)*f+g)+(l.ar(y)*f)+(l.ar(1/y)*g)+(l.ar(y*2)*g))*(6-y)/22)}
 
 // resonators in stacked fifths fading in and out
 play{CombN.ar(Splay.ar(DynKlank.ar(`[3/2**(8..0)*440,{|b|SinOsc.ar(b/2+1/444)/(9-b)/6}!9.abs,1],PinkNoise.ar/29+Dust2.ar(2!2)),0.4))}
@@ -30,12 +32,61 @@ s.reboot; // delays use a lot of resources... may need to reboot after.
 // choose between saw waves at various harmonics, with sweep filter and echo
 play{GVerb.ar(CombN.ar(RLPF.ar(TChoose.ar(Dust.ar(99),{|i|Saw.ar(i+4*22)}!9),LFNoise1.kr(1)+2*3**4,1)*Env([0,1,1,0],[9,22,9]).ar/9,4,4,48))}
 
+// lf pulse creates rhythms at various harmonics
+play{FreeVerb2.ar(*CombC.ar(Splay.ar(({|i|Slew.ar(LFPulse.ar(i/22)*Saw.ar(f=66*i)*Env([0,1,1,0],[11,22,0]).ar/2,f,f)}!16).scramble),1,1,4))}
+
+play{Formlet.ar(Impulse.ar(1),66,0.02,1)}
+
+{Crackle.ar(2)/2}.plot
+
+[1,2,3,4]
 
 12.collect{|i|(i+2*3)}
 12.collect{|i|(i+2**2)}
 
 f=1;
 f=f*2;
+
+
+
+(
+// modal space
+// mouse x controls discrete pitch in dorian mode
+var scale, buffer;
+scale = FloatArray[0, 2, 3.2, 5, 7, 9, 10]; // dorian scale
+buffer = Buffer.alloc(s,7,1,{|b|b.set[0,0,1,2,2,4,3,5,4,7,5,9])});
+
+play({
+    var mix;
+
+    mix =
+
+    // lead tone
+    SinOsc.ar(
+        (
+            DegreeToKey.kr(
+                buffer.bufnum,
+                MouseX.kr(0,15),        // mouse indexes into scale
+                12,                    // 12 notes per octave
+                1,                    // mul = 1
+                72                    // offset by 72 notes
+            )
+            + LFNoise1.kr([3,3], 0.04)    // add some low freq stereo detuning
+        ).midicps,                        // convert midi notes to hertz
+        0,
+        0.1)
+
+    // drone 5ths
+    + RLPF.ar(LFPulse.ar([48,55].midicps, 0.15),
+        SinOsc.kr(0.1, 0, 10, 72).midicps, 0.1, 0.1);
+
+    // add some 70's euro-space-rock echo
+    CombN.ar(mix, 0.31, 0.31, 2, 1, mix)
+})
+)
+
+
+
 
 -1+2*3**4;
 1+2*3**4;
