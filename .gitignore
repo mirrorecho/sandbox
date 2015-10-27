@@ -1,4 +1,9 @@
 ##########################################
+# calliope settings file
+settings.py
+
+
+##########################################
 # sublime text ignores
 
 *.sublime-workspace

@@ -1,0 +1,5 @@
+{
+    "resting_1" : "R1 * 4 ",
+    "walking_1" : "\\relative c' { a4( b) c( d) a4( b) c( d) a4( b) c( d) a4( b) c( d) } ",
+    "running_1" : "\\relative c' { a4( b) } ",
+}

@@ -13,6 +13,9 @@ a=LFTri;play{|f=99|Pan2.ar(a.ar(f+{200.rand+216}.dup(8),{-2pi.rand+2pi}.dup(8),0
 play{a=SinOsc.ar(LFNoise0.ar(10).range(100,1e4),0,0.05)*Decay.kr(Dust.kr(1));GVerb.ar(a*LFNoise1.ar(40),299,400,0.2,0.5,50,0,0.2,0.9)}//#
 // --------------------------------------------------------------------------------------------------
 
+{|i|j=i+2/100;j.postln;}!12
+
+play{GVerb.ar(CombC.ar(Splay.ar({|i|j=i+1;(LFPulse.ar(LFSaw.kr(j/9999)+1.1,width:0.04)*Pulse.ar(j*99)/(9+i))}!16,0.2),0.5,0.5,8))}
 
 // saw changes ring freq with overlapping polyrhythms
 play{FreeVerb2.ar(*Splay.ar({|i|Ringz.ar(Decay.ar(Impulse.ar(r=i+1/4),1/r,Crackle.ar/6),LFSaw.ar(f=r/(i+2*3),1)+2*3**4,f)}!16,0.4))}
