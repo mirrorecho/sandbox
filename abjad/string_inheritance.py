@@ -17,6 +17,7 @@ class Shell(Bubble):
     viola = Placeholder()
     cello = Placeholder()
 
+# MAYBE TO DO... add quick ability for rest/space - filled bubbles (with measure durations as parameter)
 
 class Pattern1(Shell):
     violin1 = Line("r1\\fermata")
@@ -31,6 +32,9 @@ class Pattern2(Pattern1):
 class FinalMusic(GridSequence, Shell):
     grid_sequence = (Pattern1, Pattern1, Pattern2)
 
+# maybe something like this... 
+# class FinalTest(Shell):
+#     music = Pattern1() * 3 + Pattern2()
 
 score = MainScore( FinalMusic() )
 score.make_pdf()
