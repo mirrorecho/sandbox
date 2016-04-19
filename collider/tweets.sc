@@ -15,12 +15,13 @@ play{a=SinOsc.ar(LFNoise0.ar(10).range(100,1e4),0,0.05)*Decay.kr(Dust.kr(1));GVe
 
 {|i|j=i+2/100;j.postln;}!12
 
+// polyrhthms created by 16 lf pulses at different rates
 play{GVerb.ar(CombC.ar(Splay.ar({|i|j=i+1;(LFPulse.ar(LFSaw.kr(j/9999)+1.1,width:0.04)*Pulse.ar(j*99)/(9+i))}!16,0.2),0.5,0.5,8))}
 
 // saw changes ring freq with overlapping polyrhythms
 play{FreeVerb2.ar(*Splay.ar({|i|Ringz.ar(Decay.ar(Impulse.ar(r=i+1/4),1/r,Crackle.ar/6),LFSaw.ar(f=r/(i+2*3),1)+2*3**4,f)}!16,0.4))}
-
-play{FreeVerb2.ar(*Splay.ar({|i|Formlet.ar(Impulse.ar(r=i+1/8),LFSaw.ar(f=r/(i+2*3),1)+2*3**4,0.01,1/r)}!12,0.4))}
+// (variation of the same)
+play{FreeVerb2.ar(*Splay.ar({|i|Formlet.ar(Impulse.ar(r=i+1/8),LFSaw.ar(f=r/(i+2*3),1)+2*3**4,0.01,1/r/2)}!16,0.4))}
 
 // Pulse waves controlling freq:
 g=2*f=88;l=LFPulse;play{y=XLine.kr(1,6,f);CombC.ar(Saw.ar(l.ar(1!2)*f+f+(l.ar(y/9)*f+g)+(l.ar(y)*f)+(l.ar(1/y)*g)+(l.ar(y*2)*g))*(6-y)/22)}
@@ -38,7 +39,11 @@ play{GVerb.ar(CombN.ar(RLPF.ar(TChoose.ar(Dust.ar(99),{|i|Saw.ar(i+4*22)}!9),LFN
 // lf pulse creates rhythms at various harmonics
 play{FreeVerb2.ar(*CombC.ar(Splay.ar(({|i|Slew.ar(LFPulse.ar(i/22)*Saw.ar(f=66*i)*Env([0,1,1,0],[11,22,0]).ar/2,f,f)}!16).scramble),1,1,4))}
 
+// lf pulse creates back and forth between notes in harmonic series, with harmonic, lag, rate, and on/off based on loop, timed envelope to end
+l=LFPulse;play{GVerb.ar(sum({|i|Saw.ar(Lag.kr(l.kr(i/16,i-1/2),3/i)+1*99*i)*l.kr(1/8/i,0.5)*0.04}!16)*Env([0,0,1,1,0],[8,8,40,0.1]).ar)}
+
 play{Formlet.ar(Impulse.ar(1),66,0.02,1)}
+
 
 {Crackle.ar(2)/2}.plot
 
@@ -50,6 +55,30 @@ play{Formlet.ar(Impulse.ar(1),66,0.02,1)}
 f=1;
 f=f*2;
 
+f=220;l=LFPulse;play{
+Splay.ar(   
+{|i|
+Saw.ar(
+Lag.kr(l.kr(i/8,i-1/2),3/i)*f*i+f
+)*l.kr(1/8/i,0.5)
+}!16, 0.4, 0.1
+)
+}
+)
+
+(
+f=220;
+l=LFPulse;
+play{
+    Splay.ar(   
+        {|i|
+            Pulse.ar(
+                Lag.kr(l.kr(1)*f*i+f,0.2) // this is the freq
+            )
+        }!4, 0.4, 0.2
+    )
+}
+)
 
 
 (
