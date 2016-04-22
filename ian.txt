@@ -1,0 +1,356 @@
+Replace
+
+(#1; 0; #2; 0) by \dud{#1}{#2}
+(#1; #2; 0; 0) by \dul{#1}{#2}
+(#1; 0; 0; #2) by \dur{#1}{#2}
+(0; #1; #2; 0) by \dld{#1}{#2}
+(0; #1; 0; #2) by \dlr{#1}{#2}
+(0; 0; #1; #2) by \ddr{#1}{#2}
+
+(#1; #2; #3; 0) by \tcfl{#1}{#2}{#3}
+(#1; 0; #2; #3) by \tcfr{#1}{#2}{#3}
+(#1; #2; 0; #3) by \tcfu{#1}{#2}{#3}
+(0; #1; #2; #3) by \tcfd{#1}{#2}{#3}
+
+
+(#1; #2; #3; #4) by \qcf{#1}{#2}{#3}{#4}
+(#1: #2; #3: #4) by \qcfs{#1}{#2}{#3}{#4}
+(#1; #2: #3; #4) by \qcfb{#1}{#2}{#3}{#4}
+
+(#1; #2; 0) by \tcfr{#1}{#2}{}
+(#1; 0; #3) by \tcfr{#1}{}{#3}
+(0; #2; #3) by \tcfr{}{#2}{#3}
+(#1; #2; #3) by \tcfr{#1}{#2}{#3}
+
+#1, #2, #3, #4 are variables. They can be somethings like "1,3", "n", "a,b", or "n+1*,n+1". The variables will sometimes contain "0", for example "n,0", but the 0's I want you to remove and that will separate the various cases will always be isolated between the semicolons.
+
+\subsection{The sequence of mutations for a flip}
+
+Recall that to construct the cluster structure (a quiver plus the set of functions attached to the vertices) on $\Conf_4 \A_{Sp_{2n}}$, we choose a triangulation of the $4$-gon, as well as one of the six cluster structures on $\Conf_3 \A_{Sp_{2n}}$ for each of the resulting triangles. The previous section showed how to mutate between the six cluster structures on each triangle. In this section, we will give a sequence of mutations that relates two of the clusters coming from different triangulations of the $4$-gon. Combined with the previous section, this allows us to connect by mutations all $72$ different clusters we have constructed for $\Conf_4 \A_{Sp_{2n}}$ (for each of the two triangulations, we have $6 \cdot 6$ different clusters). This will allow us to connect by mutations all the clusters that we have constructed on $\Conf_m \A_{Sp_{2n}}$.
+
+Given a configuration $(A,B,C,D) \in \Conf_4 \A_{Sp_{2n}}$, we will give a sequence of mutations that relates a cluster coming from the triangulation $ABC, ACD$ to a cluster coming from the triangulation $ABD, BCD$.
+
+We will need to relabel the quiver with vertices $x_{ij}$, $y_k$, with $-n \leq i \leq n$, $1 \leq j \leq n$ and $1 \leq |k| \leq n$. The quiver we will start with is as in FIGURE 18, pictured for $Sp_6$.
+
+FIGURE 18 Quiver for $\Conf_4 \A_{Sp_{6}}$
+
+The functions attached to these vertices are as follows. Let $N=2n$. The edge functions are
+\begin{alignat*}{1}
+(k; 0; 0; N-k) &\longleftrightarrow y_k, \textrm{ for } k >0; \\
+(0; |k|; N-|k|; 0) &\longleftrightarrow y_k, \textrm{ for } k <0; \\
+(j; N-j; 0; 0) &\longleftrightarrow x_{-n,j}; \\
+(0; 0; N-j; j) &\longleftrightarrow x_{nj}; \\
+(j; 0; N-j; 0) &\longleftrightarrow x_{0j}. \\
+\end{alignat*}
+%\begin{alignat*}{1}
+%(k; 0; 0; N-k) &\longleftrightarrow y_k, \textrm{ for } k >0; \\
+%(0; |k|; 0; N-|k|) &\longleftrightarrow y_k, \textrm{ for } k <0; \\
+%(0; j; N-j; 0) &\longleftrightarrow x_{-n,j}; \\
+%(0; 0; N-j; j) &\longleftrightarrow x_{nj}; \\
+%(j; 0; N-j; 0) &\longleftrightarrow x_{0j}. \\
+%\end{alignat*}
+The face functions in the triangle where $i>0$ are
+\begin{alignat*}{1}
+(i+j; 0; N-j; N-i) &\longleftrightarrow x_{ij}, \textrm{ for } 0<i<n, i+j \leq n; \\
+(n; 0; N-j; j+i-n, N-i) &\longleftrightarrow x_{ij}, \textrm{ for } 0<i<n, i+j > n; \\
+\end{alignat*}
+while the face functions in the triangle where $i<0$ are
+\begin{alignat*}{1}
+(j; |i|; N-|i|-j; 0) &\longleftrightarrow x_{ij}, \textrm{ for } -n<i<0, |i|+j \leq n; \\
+(j; |i|, N+n-|i|-j; n; 0) &\longleftrightarrow x_{ij}, \textrm{ for } -n<i<0, |i|+j > n.
+\end{alignat*}
+
+Figure 7 displays these functions embedded within the quiver for $\Conf_4 \A_{Sp_{6}}$
+
+\begin{rmk} Note that our labelling of the vertices is somewhat different from before. The vertices labelled $x_{ij}$ correspond to the vertices labelled $x_{n-|i|, j}$ in  $\Conf_3 \A_{Sp_{2n}}$.
+\end{rmk}
+
+First, let us define the functions above. Note that there are natural maps 
+$$p_1, p_2, p_3, p_4: \Conf_4 \A_{Sp_{2n}} \rightarrow \Conf_3 \A_{Sp_{2n}}$$
+that map a configuration $(A,B,C,D)$ to $(B, C, D)$, $(A, C, D)$, $(A, B, D)$, $(A,B,C)$, respectively . Pulling back functions from $\Conf_3 \A_{Sp_{2n}}$ allows us to define functions on $\Conf_4 \A_{Sp_{2n}}$. For example,
+$$p_3^*(n; j; n-i, 2n+i-j) =: (n; j; 0; n-i, 2n+i-j).$$
+Similarly, we can pull back functions from various maps 
+$$\Conf_4 \A_{Sp_{2n}} \rightarrow \Conf_2 \A_{Sp_{2n}}$$
+to define functions such as 
+$$(0; j; N-j; 0).$$
+
+There is also a map
+$$T: \Conf_4 \A  \rightarrow \Conf_4 \A$$
+which sends
+$$(A,B,C,D) \rightarrow (s_G \cdot D, A, B, C)$$
+which allows us to define, for example
+$$T^*(n; j; 0; n-i, 2n+i-j) =: (j; 0; n-i, 2n+i-j; n).$$ The forgetful maps and twist maps, combined with the functions described below, will furnish all the functions necessary for the computation of the flip mutation sequence.
+
+More interestingly, we will have to use some functions which depend on all four flags. Let $N=2n$. Let $0 \leq a, b, c, d \leq N$ such that $a+b+c+d=4n=2N$ and $b+c \leq N$. Then we would like to define a function that we will call 
+$$(a: b; c: d).$$
+Note that our notation uses a new symbol, ``:''. This is because the construction does not exhibit cyclic symmetry, i.e.
+$$T^*(a: b; c: d) \neq (b:c;d:a).$$
+Instead, we use the notation
+$$T^*(a: b; c: d) =: (b; c: d; a).$$
+We can also define
+$$(T^2)^*(a: b; c: d)=:(c: d; a: b).$$
+
+The function $(a: b; c: d)$ on $\Conf_4 \A_{Sp_{2n}}$ is pulled back from a function on $\Conf_4 \A_{SL_{N}}$. The function on $\Conf_4 \A_{SL_{N}}$ is given by an invariant in the space
+$$[V_{\omega_a}  \otimes V_{\omega_b}  \otimes V_{\omega_c} \otimes V_{\omega_d}]^{SL_N}.$$
+It turns out that this is not always a one-dimensional vector space, so we will have to proceed with some care. We pick out the function given by the web in FIGURE 19:
+
+FIGURE 19 Web function $(a: b; c: d)$
+
+Let us give a concrete description of this function.
+
+Given four flags 
+$$u_1, \dots, u_N;$$
+$$v_1, \dots, v_N;$$
+$$w_1, \dots, w_N;$$
+$$x_1, \dots, x_N;$$
+
+first consider the forms
+$$U_a := u_1 \wedge \cdots \wedge u_a,$$
+$$V_b := v_1 \wedge \cdots \wedge v_b,$$
+$$W_c := w_1 \wedge \cdots \wedge w_c,$$
+$$X_d := x_1 \wedge \cdots \wedge x_d.$$
+
+Because $a=2N-b-c-d$, there is a natural map 
+$$\phi_{N-b-c, N-d}: \bigwedge\nolimits^{a} V \rightarrow \bigwedge\nolimits^{N-b-c} V \otimes \bigwedge\nolimits^{N-d} V.$$
+There are also natural maps 
+$$- \wedge V_b \wedge W_c  :  \bigwedge\nolimits^{N-b-c} V \rightarrow \bigwedge\nolimits^{N} V \simeq F.$$ 
+$$- \wedge W_d : \bigwedge\nolimits^{N-d} V \rightarrow \bigwedge\nolimits^{N} V \simeq F,$$
+Applying these maps to the first and second factors of $\phi_{N-b-c, N-d}(U_a)$, respectively, and then multiplying, we get get the value of our function. This is a function on $\Conf_4 \A_{SL_{N}}$. Pulling back gives a function on $\Conf_4 \A_{Sp_{2n}}$.
+
+We now define a second type of function on  $\Conf_4 \A_{Sp_{2n}}$. Let $0 \leq a, b, c, d \leq N$ such that $a+b+c+d=5n$, and $c \leq d$. Then we would like to define a function that we will call 
+$$(n: a; b: c, d).$$
+
+The function $(n: a; b: c, d)$ on $\Conf_4 \A_{Sp_{2n}}$ is pulled back from a function on $\Conf_4 \A_{SL_{2n}}$. It is given by an invariant in the space
+$$[V_{\omega_n}  \otimes V_{\omega_a}  \otimes V_{\omega_b} \otimes V_{\omega_c+\omega_d}]^{SL_N}$$
+picked out by the web in FIGURE 20a:
+
+FIGURE 20a Web function $(n: a; b: c, d)$
+
+
+
+
+Let us give a concrete description of this function.
+
+Given four flags 
+$$u_1, \dots, u_N;$$
+$$v_1, \dots, v_N;$$
+$$w_1, \dots, w_N;$$
+$$x_1, \dots, x_N;$$
+
+first consider the forms
+$$U_n := u_1 \wedge \cdots \wedge u_n,$$
+$$V_a := v_1 \wedge \cdots \wedge v_a,$$
+$$W_b := w_1 \wedge \cdots \wedge w_b,$$
+$$X_c := x_1 \wedge \cdots \wedge x_c.$$
+$$X_d := x_1 \wedge \cdots \wedge x_d.$$
+
+Because $b=2N+n-a-c-d$, there is a natural map 
+$$\phi_{N-c, n-d, N-a}: \bigwedge\nolimits^{b} V \rightarrow \bigwedge\nolimits^{N-c} V \otimes \bigwedge\nolimits^{n-d} V \otimes \bigwedge\nolimits^{N-a} V.$$
+There are also natural maps 
+$$- \wedge X_{c} : \bigwedge\nolimits^{N-c} V \rightarrow \bigwedge\nolimits^{N} V \simeq F,$$
+$$U_n \wedge - \wedge X_d: \bigwedge\nolimits^{n-d} V \rightarrow \bigwedge\nolimits^{N} V \simeq F,$$ and
+$$V_a \wedge - :  \bigwedge\nolimits^{N-a} V \rightarrow \bigwedge\nolimits^{N} V \simeq F.$$ 
+Applying these maps to the first, second, and third factors of $\phi_{N-c, n-d, N-a}(W_b)$, respectively, and then multiplying, we get get the value of our function $(n: a; b: c, d)$. Using the twist map $T$, we can also define the functions $(a; b: c, d; n)$, $(b: c, d; n: a)$, and $(c, d; n: a; b)$.
+
+
+
+Using duality, there is also a function $(n: a; b: c, d)$ on $\Conf_4 \A_{Sp_{2n}}$ for $0 \leq a, b, c, d \leq N$, $a+b+c+d=N+n$, and $c \leq d$. 
+
+The function $(n: a; b: c, d)$ on $\Conf_4 \A_{Sp_{2n}}$ is pulled back from a function on $\Conf_4 \A_{SL_{2n}}$. The function on $\Conf_4 \A_{SL_{N}}$ is given by an invariant in the space
+$$[V_{\omega_n}  \otimes V_{\omega_a}  \otimes V_{\omega_b} \otimes V_{\omega_c+\omega_d}]^{SL_N}.$$
+This vector space is generally multi-dimensional. To pick out the correct invariant, we use the web in FIGURE 20b:
+
+FIGURE 20b Web function $(n: a; b: c, d)$
+
+Let us give a concrete description of this function. Again take
+
+$$u_1, \dots, u_N;$$
+$$v_1, \dots, v_N;$$
+$$w_1, \dots, w_N;$$
+$$x_1, \dots, x_N;$$
+$$U_n := u_1 \wedge \cdots \wedge u_n,$$
+$$V_a := v_1 \wedge \cdots \wedge v_a,$$
+$$W_b := w_1 \wedge \cdots \wedge w_b,$$
+$$X_c := x_1 \wedge \cdots \wedge x_c.$$
+$$X_d := x_1 \wedge \cdots \wedge x_d.$$
+
+Because $a+b=N+n-c-d$, there is a natural map 
+$$\phi_{N-c, n-d}: \bigwedge\nolimits^{a+b} V \rightarrow \bigwedge\nolimits^{N-c} V \otimes \bigwedge\nolimits^{n-d} V.$$
+There are also natural maps 
+$$- \wedge X_{c} : \bigwedge\nolimits^{N-c} V \rightarrow \bigwedge\nolimits^{N} V \simeq F,$$ and
+$$U_n \wedge - \wedge X_d: \bigwedge\nolimits^{n-d} V \rightarrow \bigwedge\nolimits^{N} V \simeq F.$$
+Applying these maps to the first and second factors of $\phi_{N-c, n-d}(V_a \wedge W_b)$, respectively, and then multiplying, we get get the value of our function $(n: a; b: c, d)$. 
+
+Using the twist map $T$, we can also define the functions $(a; b: c, d; n)$, $(b: c, d; n: a)$, and $(c, d; n: a; b)$.
+
+
+
+We will need to define one more type of function to do our calculations. Let $N=2n$. Let $0 \leq a, b, c, d \leq N$ such that $a+b+c+d=4n=2N$, $a \leq n \leq b$ and $c \leq n \leq d$. Then we would like to define a function that we will call 
+$$(n: a, b; n: c, d).$$
+
+The function $(n: a, b; n: c, d)$ on $\Conf_4 \A_{Sp_{2n}}$ is pulled back from a function on $\Conf_4 \A_{SL_{2n}}$. The function on $\Conf_4 \A_{SL_{N}}$ is given by an invariant in the space
+$$[V_{\omega_n}  \otimes V_{\omega_a+\omega_b}  \otimes V_{\omega_n} \otimes V_{\omega_c+\omega_d}]^{SL_N}.$$
+This vector space is generally multi-dimensional. To pick out the correct invariant, we use the web in FIGURE 21:
+
+FIGURE 21 Web function $(n: a, b; n: c, d)$
+
+Let us give a concrete description of this function.
+
+Given four flags 
+$$u_1, \dots, u_N;$$
+$$v_1, \dots, v_N;$$
+$$w_1, \dots, w_N;$$
+$$x_1, \dots, x_N;$$
+
+first consider the forms
+$$U_n := u_1 \wedge \cdots \wedge u_n,$$
+$$V_a := v_1 \wedge \cdots \wedge v_a,$$
+$$V_b := v_1 \wedge \cdots \wedge v_b,$$
+$$W_n := w_1 \wedge \cdots \wedge w_n,$$
+$$X_c := x_1 \wedge \cdots \wedge x_c.$$
+$$X_d := x_1 \wedge \cdots \wedge x_d.$$
+
+Because $n+a=2N+n-b-c-d$, there is a natural map 
+$$\phi_{N-c, n-d,N-b}: \bigwedge\nolimits^{n+a} V \rightarrow \bigwedge\nolimits^{N-c} V \otimes \bigwedge\nolimits^{n-d} V \otimes \bigwedge\nolimits^{N-b} V.$$
+There are also natural maps 
+$$- \wedge X_{c} : \bigwedge\nolimits^{N-c} V \rightarrow \bigwedge\nolimits^{N} V \simeq F,$$
+$$U_n \wedge - \wedge X_d: \bigwedge\nolimits^{n-d} V \rightarrow \bigwedge\nolimits^{N} V \simeq F,$$ and
+$$V_b \wedge - :  \bigwedge\nolimits^{N-b} V \rightarrow \bigwedge\nolimits^{N} V \simeq F.$$ 
+Applying these maps to the first, second, and third factors of $\phi_{N-c, n-d,N-a}(V_a \wedge W_n)$, respectively, and then multiplying, we get get the value of our function $(n: a, b; n: c, d)$. 
+
+Note that when $a=0$, $b=N$, $c=0$ or $d=N$, we have
+$$(n: 0, b; n: c, d)=:(n: b; n: c, d),$$
+$$(n: a, N; n: c, d)=:(n: a; n: c, d),$$
+$$(n: a, b; n: 0, d)=:(n: a, b; n: d),$$
+$$(n: a, b; n: c, N)=:(n: a, b; n: c).$$
+If $a=0$ and $d=N$, we will have
+$$(n: 0, b; n: c, N)=(n: b; n: c),$$
+where $(n: b; n: c) $ is as defined above. A similar equality holds when $b=N, c=0$. If $a=0$, $b=N$, $c=0$ and $d=N$, we will have that 
+$$(n: 0, N; n: 0, N)=(n: 0; n: 0).$$
+
+Now we give the sequence of mutations realizing the flip of a triangulation. The sequence of mutations leaves $x_{-n,j}, x_{nj}, y_k$ untouched as they are frozen variables. Hence we only mutate $x_{ij}$ for $-n \leq i \leq n$. We now describe the sequence of mutations. The sequence of mutations will have $3n-2$ stages. At the $r^{\textrm{th}}$ step, we mutate all vertices such that 
+$$|i|+j \leq r,$$
+$$j-|i|+2n -2 \geq r,$$
+$$|i|+j \equiv r \mod 2.$$
+
+Note that the first inequality is empty for $r \geq 2n-1$, while the second inequality is empty for $r \leq n$. For example, for $Sp_6$, the sequence of mutations is
+
+\begin{equation}
+\begin{gathered}
+x_{01}, \\
+x_{-1,1}, x_{02}, x_{11},  \\
+x_{-2,1}, x_{-1,2}, x_{01}, x_{03}, x_{12}, x_{21},  \\
+x_{-2,2}, x_{-1,1}, x_{-1,3}, x_{02}, x_{11}, x_{13}, x_{22},  \\
+x_{-2,3}, x_{-1,2}, x_{01}, x_{03}, x_{12}, x_{23},  \\
+x_{-1,3}, x_{02}, x_{13},  \\
+x_{03}.
+\end{gathered}
+\end{equation}
+
+In FIGURE 22, we depict how the quiver for $\Conf_4 \A_{Sp_{6}}$ changes after each of the seven stages of mutation.
+
+FIGURE 22
+
+The analogue $\Conf_4 \A_{Sp_{2n}}$ should be clear. Note that there are no circled arrows in the diagram, so that lifting from this sequence of mutations from $\Conf_4 \A_{Sp_{2n}}$ to $\Conf_4 \A_{SL_{2n}}$ is straightforward.
+
+We now have the main theorem of this section:
+
+\begin{theorem}
+We first analyze the situation when $i > 0$. The vertex $x_{ij}$ is mutated a total of $n-i$ times. There are four cases.
+\begin{itemize}
+\item When $i+j < n$ and $i < j$, the function attached to $x_{ij}$ mutates in three stages, consisting of $n-i-j, i,$ and $j-i$ mutations, respectively:
+\begin{enumerate}
+\item $$(i+j; 0; N-j; N-i) \rightarrow (i+j+1: 1; N-j-1: N-i-1) \rightarrow $$
+$$(i+j+2: 2; N-j-2: N-i-2) \rightarrow $$
+$$\dots \rightarrow (n: n-i-j; n+i: n+j)$$
+\item $$(n: n-i-j; n+i: n+j)=(n: n-i-j; n+i: 0, n+j) \rightarrow $$
+$$(n: n-i-j+1; n+i-1: 1, n+j-1) \rightarrow$$
+$$ (n: n-i-j+2; n+i-2: 2, n+j-2) \rightarrow $$
+$$\dots \rightarrow (n: n-j; n: i, n+j-i)$$
+\item $$(n: n-j; n: i, n+j-i)=(n: n-j, N; n: i, n+j-i)$$
+$$\rightarrow (n: n-j+1, N-1; n: i+1, n+j-i-1) \rightarrow $$
+$$(n: n-j+2, N-2; n: i+2, n+j-i-2) \rightarrow $$
+$$\dots \rightarrow [(n: n-i, N-j+i; n: j, n)] \textrm{ } (0; n-i, N-j+i; n; j)$$
+\end{enumerate}
+
+\item When $i+j \geq n$ and $i < j$, the function attached to $x_{ij}$ mutates  in two stages, consisting of $n-j,$ and $j-i$ mutations, respectively:
+\begin{enumerate}
+\item $$(n; 0; N-j; j+i-n, N-i) \rightarrow (n: 1; N-j-1: j+i-n+1, N-i-1) \rightarrow $$
+$$(n: 2; N-j-2: j+i-n+2, N-i-2) \rightarrow$$
+$$\dots  \rightarrow (n: n-j; n: i, n-i+j)$$
+\item $$(n: n-j; n: i, n-i+j) [(n: n-j, N; n: i, n-i+j)] \rightarrow $$
+$$(n: n-j+1, N-1; n: i+1, n-i+j-1) \rightarrow $$
+$$(n: n-j+2, N-2; n: i+2, n-i+j-2) \rightarrow$$
+$$\dots  \rightarrow [(n: n-i, N-j+i; n: j, n)]  \textrm{ } (0; n-i, N-j+i; n; j ) $$
+\end{enumerate}
+
+\item When $i+j < n$ and $i \geq j$, the function attached to $x_{ij}$ mutates in two stages, consisting of $n-i-j,$ and $j$ mutations, respectively:
+\begin{enumerate}
+\item $$(i+j; 0; N-j; N-i) \rightarrow (i+j+1; 1; N-j-1; N-i-1) \rightarrow $$
+$$(i+j+2; 2; N-j-2; N-i-2) \rightarrow $$
+$$\dots \rightarrow (n; n-i-j; n+i; n+j)$$
+\item $$(n; n-i-j; n+i; n+j) \rightarrow (n: n-i-j+1; n+i-1: 1, n+j-1) \rightarrow $$
+$$(n: n-i-j+2; n+i-2: 2, n+j-2) \rightarrow $$
+$$\dots \rightarrow [(n: n-i; n+i-j: j, n)]  \textrm{ } (0; n-i; n+i-j;  j)$$
+\end{enumerate}
+
+\item When $i+j \geq n$ and $i \geq j$, the function attached to $x_{ij}$ mutates in one stage consisting of $n-i$ mutations:
+$$(n; 0; N-j; j+i-n, N-i) \rightarrow (n: 1; N-j-1: j+i-n+1, N-i-1) \rightarrow $$
+$$(n: 2; N-j-2: j+i-n+2, N-i-2) \rightarrow$$
+$$\dots  \rightarrow [(n: n-i; n+i-j : j, n)] \textrm{ } (0; n-i; n+i-j; j)$$
+
+\end{itemize}
+
+The mutation sequence when $i \leq 0$ is completely parallel. We include it in an appendix.
+
+In all these sequences, for each mutation, two parameters increase, and two decrease. Within a stage, the same parameters increase or decrease. The only exception is that sometimes after the last mutation, one removes the factor $(n; 0; 0; n)$ (or $(0; n; n; 0)$ when $i \leq 0$). The expressions in square brackets indicate the functions before removing factors of $(n; 0; 0; n)$ (or $(0; n; n; 0)$ when $i \leq 0$).
+
+\end{theorem}
+
+\begin{proof} The proof comes down to a handful of identities used in conjunction, as in previous proofs of this type. Here are the identities we use:
+
+\begin{itemize}
+\item Let $0 \leq a, b, c, d \leq N$, and $a+b+c+d=2N$. 
+$$(a: b ; c: d)(a+1: b+1; c-1: d-1)=$$
+$$(a: b+1 ; c-1 : d)(a+1: b; c: d-1)+(a+1: b; c-1: d)(a: b+1; c: d-1).$$
+
+\item Let $0 \leq a, b, c, d \leq N$, and $a+b+c+d=3n$. 
+$$(n: a; b: c, d)(n: a+1; b-1: c+1, d-1)=$$
+$$(n: a+1; b-1: c, d)(n: a; b: c+1, d-1)+(n: a+1; b: c, d-1)(n: a; b-1: c+1, d).$$
+There is also a dual identity when $a+b+c+d=5n$ that we use when $i < 0$:
+$$(n: a; b: c, d)(n: a-1; b+1: c+1, d-1)=$$
+$$(n: a; b: c+1, d-1)(n: a-1; b+1: c, d)+(n: a-1; b: c+1, d)(n: a; b+1: c, d-1).$$
+
+\item Let $0 \leq a, b, c, d \leq N$, and $a+b+c+d=4n$. 
+$$(n: a, b; n: c, d)(n: a+1, b-1; n: c+1, d-1)=$$
+$$(n: a+1, b-1; n: c, d)(n: a, b; n: c+1, d-1)+(n: a+1, b; n: c, d-1)(n: a, b-1; n: c+1, d).$$
+
+\item Let $0 \leq a, b, c, d \leq N$ such that $a+b+c+d=4n=2N$, $a \leq b$ and $c \leq d$. If $a+d=b+c=N$.,
+$$(a: b ; c: d)=(0; b; c; 0)(a; 0; 0; d)$$
+
+\item Let $0 \leq a, b, c, d \leq N$ such that $a+b+c+d=4n=2N$, $a \leq b$ and $c \leq d$. If $a, b, c,$ or $d=n$,
+$$(n: n, b; n: c, d)=(n; b; 0; c, d)(0; n; n; 0),$$
+$$(n: a, n; n: c, d)=(n; a; 0; c, d)(0; n; n; 0),$$
+$$(n: a, b; n: n, d)=(0; a, b; n; d)(n; 0; 0; n),$$
+$$(n: a, b; n: c, n)=(0; a, b; n; c)(n; 0; 0; n).$$
+
+\item The final set of identities was mentioned previously. Let $0 \leq a, b, c, d \leq N$ such that $a+b+c+d=4n=2N$, $a \leq b$ and $c \leq d$. When $a=0$, $b=N$, $c=0$ or $d=N$, we have
+$$(n: 0, b; n: c, d)=:(n: b; n: c, d),$$
+$$(n: a, N; n: c, d)=:(n: a; n: c, d),$$
+$$(n: a, b; n: 0, d)=:(n: a, b; n: d),$$
+$$(n: a, b; n: c, N)=:(n: a, b; n: c).$$
+If $a=0$ and $d=N$, we will have
+$$(n: 0, b; n: c, N)=(n: b; n: c).$$
+A similar equality holds when $b=N, c=0$. If $a=0$, $b=N$, $c=0$ and $d=N$, we will have that 
+$$(n: 0, N; n: 0, N)=(n: 0; n: 0).$$
+
+\end{itemize}
+
+The first three sets of identities are the most important. They are variations on the octahedron recurrence. When $i+j < n$ and $i < j$, the three stages use the first, second and third set of identities, respectively. When $i+j \geq n$ and $i < j$, the two stages use the second and third set of identities, respectively. When $i+j < n$ and $i \geq j$, the two stages use the first and second set of identities, respectively. When $i+j \geq n$ and $i \geq j$, the one stage uses only the second set of identities.
+
+The last three sets of identities are used to give degenerate versions of the previous three sets of identities.
+
+\end{proof}
+
+
+

@@ -5,11 +5,11 @@
 			"path": "."
 		},
 		{
-			"path": "/home/randall/Code/mirrorecho/supercollider-workshop"
+			"path": "/Users/randallwest/Code/mirrorecho/calliope"
 		},
 		{
-			"path": "/home/randall/Code/mirrorecho/calliope"
+			"path": "/Users/randallwest/Code/mirrorecho/rwestmusic-drops-of-neon"
 		}
 	],
-	"virtualenv": "/home/randall/Code/venvs/abjad_2.16"
+	"virtualenv": "/Users/randallwest/Code/venvs/abjad_2.16"
 }
