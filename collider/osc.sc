@@ -1,5 +1,11 @@
 
-n = NetAddr("192.168.1.158", 57120); // NOTE: don't use 57110... it's a special-use server port
+n = NetAddr("192.168.1.158", 8000); // NOTE: don't use 57110... it's a special-use server port
+n = NetAddr("10.0.104.33", 8000);
+
+
+~controlBus = Bus.control(s,1);
+
+{ In.kr(~controlBus).poll }.play; // to see the
 
 (
 {
@@ -17,7 +23,7 @@ OSCdef(\listen1, func:{arg msg;
 	// freq = Line.kr(msg[1], msg[2], msg[3], doneAction:2);
 	// sig = Saw.ar(freq:freq * [0.99, 1.01], mul: 0.1);
 	// LFnoise1.kr ...
-}, path:'/accelerometer/raw/x');
+}, path:'/accelerometer/raw/x', recvPort:8000);
 
 )
 
@@ -31,6 +37,3 @@ OSCdef(\listen1, func:{arg msg;
 }, path:'/orientation/roll');
 )
 
-~controlBus = Bus.control(s,1);
-
-{ In.kr(~controlBus).poll }.play; // to see the
