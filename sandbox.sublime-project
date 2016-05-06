@@ -11,5 +11,6 @@
 			"path": "/Users/randallwest/Code/mirrorecho/rwestmusic-drops-of-neon"
 		}
 	],
-	"virtualenv": "/Users/randallwest/Code/venvs/abjad_2.16"
+	// "python_interpreter": "/Users/rwest/Code/venvs/abjad_2.17/bin/python",
+	"virtualenv": "/Users/rwest/Code/venvs/abjad_2.17"
 }
