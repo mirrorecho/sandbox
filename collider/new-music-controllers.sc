@@ -7,6 +7,15 @@
 ~ss.start(
 	~ss.loadCommon(
 		{
+
+		}
+	)
+);
+)
+
+
+// THIRD RUN THIS:
+(
 ~me = NetAddr("127.0.0.1", 57120);
 ~controlBusBack = Bus.control(s,1);
 OSCdef(\listenBack, func:{arg msg;
@@ -38,10 +47,6 @@ OSCdef(\listenForward16, func:{arg msg;
 	~controlBusForward16.value = msg[1];
 }, path:'/pineapple/forward/16');
 
-		}
-	)
-);
-
 ~me.sendMsg('/pineapple/forward', 0);
 ~me.sendMsg('/pineapple/forward/8', 0);
 ~me.sendMsg('/pineapple/forward/12', 0);
@@ -50,11 +55,11 @@ OSCdef(\listenForward16, func:{arg msg;
 ~me.sendMsg('/pineapple/back/count', 1);
 )
 
-// THIRD RUN THIS:
 
+// FOURTH RUN THIS:
 (
 SynthDef("ss.pops8", {
-	var times = 8;
+	var times = 4;
 	var freq,r;
 	var mul = Lag.kr(In.kr(~controlBusForward8), 2);
 	Out.ar(~ss.bus.master,
@@ -92,20 +97,16 @@ SynthDef("ss.pops12", {
 ).add;
 
 SynthDef("ss.pops16", {
-	arg times = 16;
+	var times = 32;
 	var freq,r;
 	var mul = Lag.kr(In.kr(~controlBusForward16), 2);
 	Out.ar(~ss.bus.master,
-		Splay.ar(
-			{|i|
-				r=i+1/8;
-				freq = r/(i+2*3);
-				Formlet.ar(
-					Impulse.ar(r),
-					LFSaw.ar(freq,1)+2*3**4,
-					0.01,1/r/2)
-			}!12, 0.4
-		)*mul;
+		Splay.ar({|i|
+			Ringz.ar(
+				Decay.ar(
+					Impulse.ar(r=i+1/4),1/r,
+					Crackle.ar/6),
+				LFSaw.ar(f=r/(i+2*3),1)+2*3**4,f)}!times,0.4)*mul;
 	);
 }
 ).add;
