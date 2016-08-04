@@ -224,8 +224,8 @@ class Walker {
     
    
     // cross over to the other side of the screen if we reach the edge:
-    if (location.x>width) location.x-=width; else if (location.x<0) location.x+=width;
-    if (location.y>height) location.y-=height; else if (location.y<0) location.y+=height;
+    // if (location.x>width) location.x-=width; else if (location.x<0) location.x+=width;
+    // if (location.y>height) location.y-=height; else if (location.y<0) location.y+=height;
   }
   
   void show() {

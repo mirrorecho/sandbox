@@ -9,8 +9,16 @@
 		},
 		{
 			"path": "/Users/rwest/Code/mirrorecho/rwestmusic-drops-of-neon"
+		},
+		{
+			"path": "/home/randall/Code/mirrorecho/supercollider-workshop"
+		},
+		{
+			"path": "/home/randall/Code/mirrorecho/calliope"
+		},
+		{
+			"path": "/home/randall/Code/mirrorecho/superstudio"
 		}
 	],
-	// "python_interpreter": "/Users/rwest/Code/venvs/abjad_2.17/bin/python",
-	"virtualenv": "/Users/rwest/Code/venvs/abjad_2.17"
+	"virtualenv": "/home/randall/Code/venvs/abjad_2.16"
 }
