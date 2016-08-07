@@ -5,13 +5,22 @@
 			"path": "."
 		},
 		{
-			"path": "/Users/rwest/Code/mirrorecho/calliope"
+			"path": "../calliope"
 		},
 		{
-			"path": "/Users/rwest/Code/mirrorecho/rwestmusic-drops-of-neon"
+			"path": "../rwestmusic-drops-of-neon"
 		},
 		{
-			"path": "/Users/rwest/Code/mirrorecho/abjad-intensive"
+			"path": "../abjad-intensive"
+		},
+		{
+			"path": "../supercollider-workshop"
+		},
+		{
+			"path": "../calliope"
+		},
+		{
+			"path": "../superstudio"
 		}
 	],
 	"virtualenv": "/Users/rwest/Code/venvs/abjad_2.18"
