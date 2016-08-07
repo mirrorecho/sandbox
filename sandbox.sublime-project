@@ -9,8 +9,10 @@
 		},
 		{
 			"path": "/Users/rwest/Code/mirrorecho/rwestmusic-drops-of-neon"
+		},
+		{
+			"path": "/Users/rwest/Code/mirrorecho/abjad-intensive"
 		}
 	],
-	// "python_interpreter": "/Users/rwest/Code/venvs/abjad_2.17/bin/python",
-	"virtualenv": "/Users/rwest/Code/venvs/abjad_2.17"
+	"virtualenv": "/Users/rwest/Code/venvs/abjad_2.18"
 }
