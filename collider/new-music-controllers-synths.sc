@@ -1,3 +1,14 @@
+// NEW SYNTHS FOR CLUB NIGHT
+(
+SynthDef("ss.saw", {
+	CombC.ar(Saw.ar(LFPulse.ar(1!2)*f+f+(LFPulse.ar(y/9)*f+g)+(LFPulse.ar(y)*f)+(LFPulse.ar(1/y)*g)+(LFPulse.ar(y*2)*g))*(6-y)/22)}
+}
+).add;
+)
+
+
+
+
 (
 SynthDef("ss.pops8", {
 	var times = 4;

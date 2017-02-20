@@ -5,23 +5,20 @@
 			"path": "."
 		},
 		{
-			"path": "../calliope"
+			"path": "/Users/rwest/Code/mirrorecho/calliope"
 		},
 		{
-			"path": "../rwestmusic-drops-of-neon"
+			"path": "/Users/rwest/Code/mirrorecho/abjad-intensive"
 		},
 		{
-			"path": "../abjad-intensive"
+			"path": "/Users/rwest/Code/mirrorecho/rwestmusic-copper"
 		},
 		{
-			"path": "../supercollider-workshop"
+			"path": "/Users/rwest/Code/mirrorecho/supercollider-workshop"
 		},
 		{
-			"path": "../calliope"
-		},
-		{
-			"path": "../superstudio"
+			"path": "/Users/rwest/Code/mirrorecho/superstudio"
 		}
 	],
-	"virtualenv": "/Users/rwest/Code/venvs/abjad_2.18"
+	"virtualenv": "/Users/rwest/Code/venvs/cooldata"
 }

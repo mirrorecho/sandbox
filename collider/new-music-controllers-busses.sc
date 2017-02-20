@@ -16,7 +16,7 @@ OSCdef(\listenForward, func:{arg msg;
 	~controlBusForward.value = msg[1];
 }, path:'/pineapple/forward');
 
-~controlBusForward8 = Bus.control(s,1);
+/*~controlBusForward8 = Bus.control(s,1);
 OSCdef(\listenForward8, func:{arg msg;
 	~controlBusForward8.value = msg[1];
 }, path:'/pineapple/forward/8');
@@ -34,7 +34,7 @@ OSCdef(\listenForward16, func:{arg msg;
 ~controlBusForward16 = Bus.control(s,1);
 OSCdef(\listenForward16, func:{arg msg;
 	~controlBusForward16.value = msg[1];
-}, path:'/pineapple/forward/16');
+}, path:'/pineapple/forward/16');*/
 
 ~controlBusMower = Bus.control(s,1);
 OSCdef(\listenMower, func:{arg msg;

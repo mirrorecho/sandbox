@@ -1,36 +1,53 @@
+// ZERO, REBOOT: .......................................................
+(
+s.reboot;
+)
 // FIRST, EXECUTE ss.sc FILE:
 // .......................................................
-// SECOND... RUN THIS TWICE... WHY TWICE???????
-
 (
-~ss.start(
-	~ss.loadCommon(
-		{
-
-
-		}
-	)
-);
+~ss.localPath = "".resolveRelative;
+(~ss.localPath ++ "../../superstudio/ss.sc").loadPaths;
+)
+// SECOND... RUN THIS TWICE... WHY TWICE???????
+(
+~ss.start( ~ss.loadCommon({}) );
 )
 // .......................................................
-// THIRD RUN THE BUSSES FILE
+// THIRD RUN THE BUSSES
+(
+~ss.localPath = "".resolveRelative;
+(~ss.localPath ++ "new-music-controllers-busses-2.sc").loadPaths;
+)
 // .......................................................
-// FOURTH RUN SYNTHS FILE:
+// FOURTH RUN SYNTHS
+(
+(~ss.localPath ++ "new-music-controllers-synths-2.sc").loadPaths;
+)
 // .......................................................
 // FINALLY... start the synths...
 (
-b = Synth("ss.bloo");
-~p8 = Synth("ss.pops8");
-~p12 = Synth("ss.pops12");
-~p16 = Synth("ss.pops16");
-~r = Synth("ss.ringy");
+~pops = [];
+{|i|
+	~pops.add(Synth("ss.pops." ++ (i+1) ));
+}!24;
+// ~ringy = Synth("ss.ringy");
 ~mower = Synth("ss.mower");
+~bloo = Synth("ss.bloo");
+// ~cicadas = Synth("ss.cicadas");
 )
 
-~mower = Synth("ss.mower");
+{SinOsc.ar}.play;
 
-r = Synth("ss.ringy");
-r.stop;
+
+// TO STOP THE SYNTHS:
+(
+{|i|
+	~pops.[0].stop;
+}!16;
+~mower.stop;
+~ringy.stop;
+~cicadas.stop;
+)
 
 
 
