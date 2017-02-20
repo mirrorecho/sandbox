@@ -1,5 +1,5 @@
-// see here: "http://rumblesan.com/post/53271713518/drum-sounds-in-supercollider-part-1"
-// and here: "http://rumblesan.com/post/53271713909/drum-sounds-in-supercollider-part-2"
+// see here: "http://blog.rumblesan.com/post/53271713518/drum-sounds-in-supercollider-part-1"
+// and here: "http://blog.rumblesan.com/post/53271713909/drum-sounds-in-supercollider-part-2"
 
 SynthDesc
 

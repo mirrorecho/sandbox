@@ -9,8 +9,10 @@
 		},
 		{
 			"path": "/Users/randallwest/Code/mirrorecho/rwestmusic-drops-of-neon"
+		},
+		{
+			"path": "/Users/randallwest/Code/mirrorecho/rwestmusic-ghost"
 		}
 	],
-	// "python_interpreter": "/Users/rwest/Code/venvs/abjad_2.17/bin/python",
 	"virtualenv": "/Users/rwest/Code/venvs/abjad_2.17"
 }
