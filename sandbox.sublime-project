@@ -18,6 +18,9 @@
 		},
 		{
 			"path": "../superstudio"
+		},
+		{
+			"path": "../rwestmusic-ghost"
 		}
 	],
 	"virtualenv": "../../venvs/cooldata"
