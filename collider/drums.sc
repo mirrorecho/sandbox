@@ -36,13 +36,15 @@ hatoutput = (hatosc * hatenv);
 
 Out.ar(0,
 Pan2.ar(hatoutput, 0)
-)
+);
 }).send(s);
 
+)
 // ------------------------------------------------
+(
 SynthDef('closedhat', {
 
-var hatosc, hatenv, hatnoise, hatoutput;0
+var hatosc, hatenv, hatnoise, hatoutput;
 
 hatnoise = {LPF.ar(WhiteNoise.ar(1),6000)};
 
@@ -53,8 +55,10 @@ hatoutput = (hatosc * hatenv);
 
 Out.ar(0,
 Pan2.ar(hatoutput, 0)
+);
+}).send(s);
+
 )
-}).send(s); )
 // ------------------------------------------------
 (
 SynthDef('snaredrum', {

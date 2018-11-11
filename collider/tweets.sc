@@ -44,6 +44,7 @@ l=LFPulse;play{GVerb.ar(sum({|i|Saw.ar(Lag.kr(l.kr(i/16,i-1/2),3/i)+1*99*i)*l.kr
 
 play{Formlet.ar(Impulse.ar(1),66,0.02,1)}
 
+// IDEA... ostinatos start together, going out of phase quickly into mush. Then start together again
 
 {Crackle.ar(2)/2}.plot
 
@@ -56,7 +57,7 @@ f=1;
 f=f*2;
 
 f=220;l=LFPulse;play{
-Splay.ar(   
+Splay.ar(
 {|i|
 Saw.ar(
 Lag.kr(l.kr(i/8,i-1/2),3/i)*f*i+f
@@ -70,7 +71,7 @@ Lag.kr(l.kr(i/8,i-1/2),3/i)*f*i+f
 f=220;
 l=LFPulse;
 play{
-    Splay.ar(   
+    Splay.ar(
         {|i|
             Pulse.ar(
                 Lag.kr(l.kr(1)*f*i+f,0.2) // this is the freq
@@ -89,31 +90,31 @@ scale = FloatArray[0, 2, 3.2, 5, 7, 9, 10]; // dorian scale
 buffer = Buffer.alloc(s,7,1,{|b|b.set[0,0,1,2,2,4,3,5,4,7,5,9])});
 
 play({
-    var mix;
+    var mix;
 
-    mix =
+    mix =
 
-    // lead tone
-    SinOsc.ar(
-        (
-            DegreeToKey.kr(
-                buffer.bufnum,
-                MouseX.kr(0,15),        // mouse indexes into scale
-                12,                    // 12 notes per octave
-                1,                    // mul = 1
-                72                    // offset by 72 notes
-            )
-            + LFNoise1.kr([3,3], 0.04)    // add some low freq stereo detuning
-        ).midicps,                        // convert midi notes to hertz
-        0,
-        0.1)
+    // lead tone
+    SinOsc.ar(
+        (
+            DegreeToKey.kr(
+                buffer.bufnum,
+                MouseX.kr(0,15),        // mouse indexes into scale
+                12,                    // 12 notes per octave
+                1,                    // mul = 1
+                72                    // offset by 72 notes
+            )
+            + LFNoise1.kr([3,3], 0.04)    // add some low freq stereo detuning
+        ).midicps,                        // convert midi notes to hertz
+        0,
+        0.1)
 
-    // drone 5ths
-    + RLPF.ar(LFPulse.ar([48,55].midicps, 0.15),
-        SinOsc.kr(0.1, 0, 10, 72).midicps, 0.1, 0.1);
+    // drone 5ths
+    + RLPF.ar(LFPulse.ar([48,55].midicps, 0.15),
+        SinOsc.kr(0.1, 0, 10, 72).midicps, 0.1, 0.1);
 
-    // add some 70's euro-space-rock echo
-    CombN.ar(mix, 0.31, 0.31, 2, 1, mix)
+    // add some 70's euro-space-rock echo
+    CombN.ar(mix, 0.31, 0.31, 2, 1, mix)
 })
 )
 
