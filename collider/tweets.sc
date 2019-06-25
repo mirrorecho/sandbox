@@ -16,7 +16,7 @@ play{a=SinOsc.ar(LFNoise0.ar(10).range(100,1e4),0,0.05)*Decay.kr(Dust.kr(1));GVe
 {|i|j=i+2/100;j.postln;}!12
 
 // polyrhthms created by 16 lf pulses at different rates
-play{GVerb.ar(CombC.ar(Splay.ar({|i|j=i+1;(LFPulse.ar(LFSaw.kr(j/9999)+1.1,width:0.04)*Pulse.ar(j*99)/(9+i))}!16,0.2),0.5,0.5,8))}
+play{GVerb.ar(CombC.ar(Splay,ar({|i|j=i+1;(LFPulse.ar(LFSaw.kr(j/9999)+1.1,width:0.04)*Pulse.ar(j*99)/(9+i))}!16,0.2),0.5,0.5,8))}
 
 // saw changes ring freq with overlapping polyrhythms
 play{FreeVerb2.ar(*Splay.ar({|i|Ringz.ar(Decay.ar(Impulse.ar(r=i+1/4),1/r,Crackle.ar/6),LFSaw.ar(f=r/(i+2*3),1)+2*3**4,f)}!16,0.4))}
@@ -24,7 +24,13 @@ play{FreeVerb2.ar(*Splay.ar({|i|Ringz.ar(Decay.ar(Impulse.ar(r=i+1/4),1/r,Crackl
 play{FreeVerb2.ar(*Splay.ar({|i|Formlet.ar(Impulse.ar(r=i+1/8),LFSaw.ar(f=r/(i+2*3),1)+2*3**4,0.01,1/r/2)}!16,0.4))}
 
 // Pulse waves controlling freq:
-g=2*f=88;l=LFPulse;play{y=XLine.kr(1,6,f);CombC.ar(Saw.ar(l.ar(1!2)*f+f+(l.ar(y/9)*f+g)+(l.ar(y)*f)+(l.ar(1/y)*g)+(l.ar(y*2)*g))*(6-y)/22)}
+9.do{|i|g=2*f=(i**1.5*12);l=LFPulse;play{y=kr(XLine,0.001,8,f/2);ar(FreeVerb,ar(CombC,ar(Formant,e=ar(l,1)*f+f+(ar(l,y/9)*f+g)+(ar(l,y)*f)+(ar(l,1/y)*g)+(ar(l,y*2)*g),y*400,y*f,(8-y)/29)),i/9,i/9)!2}}
+
+// variant of the above:
+g=2*f=88;l=LFPulse;play{y=kr(XLine,1,6,f);ar(CombC,ar(Saw,ar(l,1!2)*f+f+(ar(l,y/9)*f+g)+(ar(l,y)*f)+(ar(l,1/y)*g)+(ar(l,y*2)*g))*(6-y)/22)}
+
+
+
 
 // resonators in stacked fifths fading in and out
 play{CombN.ar(Splay.ar(DynKlank.ar(`[3/2**(8..0)*440,{|b|SinOsc.ar(b/2+1/444)/(9-b)/6}!9.abs,1],PinkNoise.ar/29+Dust2.ar(2!2)),0.4))}
@@ -42,6 +48,101 @@ play{FreeVerb2.ar(*CombC.ar(Splay.ar(({|i|Slew.ar(LFPulse.ar(i/22)*Saw.ar(f=66*i
 // lf pulse creates back and forth between notes in harmonic series, with harmonic, lag, rate, and on/off based on loop, timed envelope to end
 l=LFPulse;play{GVerb.ar(sum({|i|Saw.ar(Lag.kr(l.kr(i/16,i-1/2),3/i)+1*99*i)*l.kr(1/8/i,0.5)*0.04}!16)*Env([0,0,1,1,0],[8,8,40,0.1]).ar)}
 
+// harmonies/lines based on randomly choosing just-intuned intervals in relation to original freq
+play{Splay.ar(({|i|l=0.3*(i+1);FreeVerb.ar(RLPF.ar(Pulse.ar(f=220*Lag.kr(TChoose.kr(Dust.kr(0.5*t=2**i,2,-1),DC.kr(t)/((1..4)+i))))*EnvGen.ar(Env.perc(0.01,l-0.01).circle)*LFNoise2.kr(0.1*((i+1)**1.5),n=0.4,n),f*LFNoise1.kr(n,4,4.1),n))}!7).scramble,0.6)*AmpCompA.kr(f,220)};
+
+
+#supercollider #sc208
+
+play{ar(Splay,ar(RLPF,ar(a=VarSaw,ar(a,(c=4/4/4)/4,c,c).max*4+44,4,ar(a,[4,4/44,c*4]).abs),44*44,c)*ar(Line,dur:4)+ar(PitchShift,ar(CombC,b=ar(a,f=ar(a,d=c*4/44.4,c,-4.sin,4).max.ceil*44+44,4,ar(a,[44-4,4,44+4]/4.44))/4,c,c*4/f+d),4-c,[4+4+4,4*4,4+4],c,c,c+c))/4}//
+
+
+// FAKE DOT -> !!!
+x=60;y=65;a=[x,x,62,x];play{GrainSin.ar(1,Impulse.ar(8),1/9,Dseq(a++[y,64,0]++a++[67,y,0,x,x,72,69,y,y,64,62,70,70,69,y,67,y]).midicps)%4e0}
+
+(
+g=2*f=88;l=LFPulse;
+play{y=kr(XLine,1,6,f);
+
+
+	Formant.ar(88, 88*2, LFPulse.kr(y/2,0,0.5,80,400));
+
+}
+)
+
+1!2*2
+
+
+play{SinOsc(440)}
+
+FreeVerb.ar(7-
+
+play{Resonz.ar(Crackle.ar(2!2),88,1/999,22);}
+
+3.do{|i| i.postln;};
+
+(
+SynthDef(\a, { |freq|
+	Out.ar(0,
+		SinOsc.ar(freq)
+		* EnvGen.kr(Env.perc,doneAction:2);
+	);
+}).add;
+p=Pseq;
+l=[2,2,4,5];
+Pbind(\instrument,\a,\note, Pseq(l,8), \dur, 0.5).play;
+
+)
+
+	i = [1,2,3,4];
+
+	[1,2,3]
+
+
+play{ PinkNoise.ar(0.6!2) }
+
+play{PinkNoise.ar!2}
+
+SinOsc.ar(
+
+Synth(\aa, (freq:220).asPairs);
+
+	8**2*12;
+
+// magic counterpoint
+
+{|i|i.postln;}!14;
+
+Array
+
+1/(1..8)+1.ar;
+
+(1)/(4..8)+1
+
+(1..3);
+
+{1-LFSaw.ar(440)}.plot;
+
+0.25*0
+
+i=3;
+t=2**i*0.5;
+
+{|i| t=2**i; (t)/((1..4)+i)}!5;
+
+Dust // for amp?
+
+(
+
+
+)
+PingPong
+CombL
+
+
+f= {arg ...yo;  yo.postln;  };
+f.value("ja", "KKL");
+
 play{Formlet.ar(Impulse.ar(1),66,0.02,1)}
 
 
@@ -56,7 +157,7 @@ f=1;
 f=f*2;
 
 f=220;l=LFPulse;play{
-Splay.ar(   
+Splay.ar(
 {|i|
 Saw.ar(
 Lag.kr(l.kr(i/8,i-1/2),3/i)*f*i+f
@@ -70,7 +171,7 @@ Lag.kr(l.kr(i/8,i-1/2),3/i)*f*i+f
 f=220;
 l=LFPulse;
 play{
-    Splay.ar(   
+    Splay.ar(
         {|i|
             Pulse.ar(
                 Lag.kr(l.kr(1)*f*i+f,0.2) // this is the freq
@@ -89,31 +190,31 @@ scale = FloatArray[0, 2, 3.2, 5, 7, 9, 10]; // dorian scale
 buffer = Buffer.alloc(s,7,1,{|b|b.set[0,0,1,2,2,4,3,5,4,7,5,9])});
 
 play({
-    var mix;
+    var mix;
 
-    mix =
+    mix =
 
-    // lead tone
-    SinOsc.ar(
-        (
-            DegreeToKey.kr(
-                buffer.bufnum,
-                MouseX.kr(0,15),        // mouse indexes into scale
-                12,                    // 12 notes per octave
-                1,                    // mul = 1
-                72                    // offset by 72 notes
-            )
-            + LFNoise1.kr([3,3], 0.04)    // add some low freq stereo detuning
-        ).midicps,                        // convert midi notes to hertz
-        0,
-        0.1)
+    // lead tone
+    SinOsc.ar(
+        (
+            DegreeToKey.kr(
+                buffer.bufnum,
+                MouseX.kr(0,15),        // mouse indexes into scale
+                12,                    // 12 notes per octave
+                1,                    // mul = 1
+                72                    // offset by 72 notes
+            )
+            + LFNoise1.kr([3,3], 0.04)    // add some low freq stereo detuning
+        ).midicps,                        // convert midi notes to hertz
+        0,
+        0.1)
 
-    // drone 5ths
-    + RLPF.ar(LFPulse.ar([48,55].midicps, 0.15),
-        SinOsc.kr(0.1, 0, 10, 72).midicps, 0.1, 0.1);
+    // drone 5ths
+    + RLPF.ar(LFPulse.ar([48,55].midicps, 0.15),
+        SinOsc.kr(0.1, 0, 10, 72).midicps, 0.1, 0.1);
 
-    // add some 70's euro-space-rock echo
-    CombN.ar(mix, 0.31, 0.31, 2, 1, mix)
+    // add some 70's euro-space-rock echo
+    CombN.ar(mix, 0.31, 0.31, 2, 1, mix)
 })
 )
 

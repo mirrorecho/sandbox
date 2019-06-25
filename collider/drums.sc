@@ -1,7 +1,9 @@
 // see here: "http://blog.rumblesan.com/post/53271713518/drum-sounds-in-supercollider-part-1"
 // and here: "http://blog.rumblesan.com/post/53271713909/drum-sounds-in-supercollider-part-2"
 
-SynthDesc
+
+
+x.free;
 
 ( SynthDef('kickdrum', {
 
@@ -23,38 +25,40 @@ SynthDesc
 }).send(s); )
 
 // ------------------------------------------------
-( SynthDef('openhat', {
+(
+SynthDef('openhat', {
+	var hatosc, hatenv, hatnoise, hatoutput;
 
-var hatosc, hatenv, hatnoise, hatoutput;
+	hatnoise = LPF.ar(WhiteNoise.ar(1),6000);
 
-hatnoise = {LPF.ar(WhiteNoise.ar(1),6000)};
+	hatosc = HPF.ar(hatnoise,2000);
+	hatenv = Line.ar(0.4, 0, 0.4);
 
-hatosc = {HPF.ar(hatnoise,2000)};
-hatenv = {Line.ar(0.4, 0, 0.4)};
+	hatoutput = (hatosc * hatenv);
 
-hatoutput = (hatosc * hatenv);
-
-Out.ar(0,
-Pan2.ar(hatoutput, 0)
-)
-}).send(s);
+	Out.ar(0,
+		Pan2.ar(hatoutput, 0)
+	)
+}).add;
 
 // ------------------------------------------------
 SynthDef('closedhat', {
 
-var hatosc, hatenv, hatnoise, hatoutput;0
+	var hatosc, hatenv, hatnoise, hatoutput;
 
-hatnoise = {LPF.ar(WhiteNoise.ar(1),6000)};
+	hatnoise = LPF.ar(WhiteNoise.ar(1),6000);
 
-hatosc = {HPF.ar(hatnoise,2000)};
-hatenv = {Line.ar(0.4, 0, 0.1)};
+	hatosc = HPF.ar(hatnoise,2000);
+	hatenv = Line.ar(0.4, 0, 0.1);
 
-hatoutput = (hatosc * hatenv);
+	hatoutput = (hatosc * hatenv);
 
-Out.ar(0,
-Pan2.ar(hatoutput, 0)
+	Out.ar(0,
+		Pan2.ar(hatoutput, 0)
+	)
+}).add;
 )
-}).send(s); )
+
 // ------------------------------------------------
 (
 SynthDef('snaredrum', {
