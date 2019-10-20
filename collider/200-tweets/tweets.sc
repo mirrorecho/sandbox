@@ -11,6 +11,12 @@ a=LFTri;play{|f=99|Pan2.ar(a.ar(f+{200.rand+216}.dup(8),{-2pi.rand+2pi}.dup(8),0
 
 
 play{a=SinOsc.ar(LFNoise0.ar(10).range(100,1e4),0,0.05)*Decay.kr(Dust.kr(1));GVerb.ar(a*LFNoise1.ar(40),299,400,0.2,0.5,50,0,0.2,0.9)}//#
+
+
+// #supercollider #sc208
+
+play{ar(Splay,ar(RLPF,ar(a=VarSaw,ar(a,(c=4/4/4)/4,c,c).max*4+44,4,ar(a,[4,4/44,c*4]).abs),44*44,c)*ar(Line,dur:4)+ar(PitchShift,ar(CombC,b=ar(a,f=ar(a,d=c*4/44.4,c,-4.sin,4).max.ceil*44+44,4,ar(a,[44-4,4,44+4]/4.44))/4,c,c*4/f+d),4-c,[4+4+4,4*4,4+4],c,c,c+c))/4}//
+
 // --------------------------------------------------------------------------------------------------
 
 {|i|j=i+2/100;j.postln;}!12
@@ -19,15 +25,16 @@ play{a=SinOsc.ar(LFNoise0.ar(10).range(100,1e4),0,0.05)*Decay.kr(Dust.kr(1));GVe
 play{GVerb.ar(CombC.ar(Splay,ar({|i|j=i+1;(LFPulse.ar(LFSaw.kr(j/9999)+1.1,width:0.04)*Pulse.ar(j*99)/(9+i))}!16,0.2),0.5,0.5,8))}
 
 // saw changes ring freq with overlapping polyrhythms
-play{FreeVerb2.ar(*Splay.ar({|i|Ringz.ar(Decay.ar(Impulse.ar(r=i+1/4),1/r,Crackle.ar/6),LFSaw.ar(f=r/(i+2*3),1)+2*3**4,f)}!16,0.4))}
+play{FreeVerb2.ar(*Splay.ar({|i|Ringz.ar(Decay.ar(Impulse.ar(r=i+1/4),1/r,Crackle.ar/6),LFSaw.ar(f=r/(i+2*3),1)+2*3**4,f)}!16,0.4)*EnvGen.kr(Env.linen(30,90,30)))}
 // (variation of the same)
 play{FreeVerb2.ar(*Splay.ar({|i|Formlet.ar(Impulse.ar(r=i+1/8),LFSaw.ar(f=r/(i+2*3),1)+2*3**4,0.01,1/r/2)}!16,0.4))}
 
 // Pulse waves controlling freq:
-9.do{|i|g=2*f=(i**1.5*12);l=LFPulse;play{y=kr(XLine,0.001,8,f/2);ar(FreeVerb,ar(CombC,ar(Formant,e=ar(l,1)*f+f+(ar(l,y/9)*f+g)+(ar(l,y)*f)+(ar(l,1/y)*g)+(ar(l,y*2)*g),y*400,y*f,(8-y)/29)),i/9,i/9)!2}}
+
 
 // variant of the above:
 g=2*f=88;l=LFPulse;play{y=kr(XLine,1,6,f);ar(CombC,ar(Saw,ar(l,1!2)*f+f+(ar(l,y/9)*f+g)+(ar(l,y)*f)+(ar(l,1/y)*g)+(ar(l,y*2)*g))*(6-y)/22)}
+
 
 
 
@@ -52,9 +59,7 @@ l=LFPulse;play{GVerb.ar(sum({|i|Saw.ar(Lag.kr(l.kr(i/16,i-1/2),3/i)+1*99*i)*l.kr
 play{Splay.ar(({|i|l=0.3*(i+1);FreeVerb.ar(RLPF.ar(Pulse.ar(f=220*Lag.kr(TChoose.kr(Dust.kr(0.5*t=2**i,2,-1),DC.kr(t)/((1..4)+i))))*EnvGen.ar(Env.perc(0.01,l-0.01).circle)*LFNoise2.kr(0.1*((i+1)**1.5),n=0.4,n),f*LFNoise1.kr(n,4,4.1),n))}!7).scramble,0.6)*AmpCompA.kr(f,220)};
 
 
-#supercollider #sc208
-
-play{ar(Splay,ar(RLPF,ar(a=VarSaw,ar(a,(c=4/4/4)/4,c,c).max*4+44,4,ar(a,[4,4/44,c*4]).abs),44*44,c)*ar(Line,dur:4)+ar(PitchShift,ar(CombC,b=ar(a,f=ar(a,d=c*4/44.4,c,-4.sin,4).max.ceil*44+44,4,ar(a,[44-4,4,44+4]/4.44))/4,c,c*4/f+d),4-c,[4+4+4,4*4,4+4],c,c,c+c))/4}//
+1e-3;
 
 
 // FAKE DOT -> !!!
@@ -70,7 +75,9 @@ play{y=kr(XLine,1,6,f);
 }
 )
 
-1!2*2
+1!2*2;
+
+
 
 
 play{SinOsc(440)}
