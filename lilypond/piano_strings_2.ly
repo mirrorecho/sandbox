@@ -133,7 +133,7 @@ the first number of the pair is the width, the second the spacing
 
 
 
-
+   %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 \layout {
   \context {
     \StaffGroup
@@ -141,7 +141,7 @@ the first number of the pair is the width, the second the spacing
   }
 }
 
-
+   %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  \score {
     %\new Staff {\globalMusic}
     <<
@@ -155,19 +155,31 @@ the first number of the pair is the width, the second the spacing
     % \override StaffSymbol.thickness = #(magstep -3)
     
     % \override NoteColumn.glissando-skip = ##t
-   \override Glissando.bound-details.left.padding = #0.2 %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   \override Glissando.bound-details.right.padding = #0.2 %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    \override Glissando.bound-details.left.attach-dir = #0 %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    \override Glissando.bound-details.right.attach-dir = #0 %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   \override Glissando.bound-details.left.padding = #0.2 
+
+    %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   \override Glissando.bound-details.right.padding = #0.2 
+   
+    %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   \override Glissando.bound-details.left.attach-dir = #0 
+   
+   %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   \override Glissando.bound-details.right.attach-dir = #0 
+
    % \override Glissando.bound-details.right.attach-dir = #0
    % \override Glissando.bound-details.left.stencil-align-dir-y = #-2
-    % \override Glissando.bound-details.right.stencil-offset = #0
+   % \override Glissando.bound-details.right.stencil-offset = #0
    % \once \override Glissando.bound-details.left.Y = #0
-   \override Glissando.style = #'dashed-line  %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   \override NoteHead.no-ledgers = ##t  %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+   %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   \override Glissando.style = #'dashed-line
+   
+   %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   \override NoteHead.no-ledgers = ##t 
+
    % \override NoteHead.stem-attachment = #'(0 . 0)
-
-
    % \override NoteColumn.X-offset = #1.0
     }
 
@@ -180,16 +192,18 @@ the first number of the pair is the width, the second the spacing
   % \startStaff g, e |
         %     {
             
+          %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
             #'((Y-offset . 0)
                (alignment-distances . (12)))
 
-            
 
+            %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             \once \override Score.TimeSignature.stencil = ##f
 
             \clef "bass_8"
 
+            %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             \set glissandoMap = #'((0 . 0 ) (0 . 1) (1 . 2) (1 . 3))
 
             <a,,\harmonic a,\harmonic>1
@@ -197,14 +211,21 @@ the first number of the pair is the width, the second the spacing
 
             % \ottava #0
 
+                %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 \glissando
             
             % \bar ";"
 
+                %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                \stopStaff 
+                %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-                \stopStaff %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                \once \override Staff.Clef.transparent = ##t %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                \clef percussion %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                \once \override Staff.Clef.transparent = ##t 
+                
+                %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                \clef percussion 
+
                 % \hide Staff.StaffSymbol
 
                 s1 %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -220,7 +241,9 @@ the first number of the pair is the width, the second the spacing
 
 
                 % \startStaff
-                \stemUp %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                \stemUp 
 
                 % \hideNotes
                 % \grace
@@ -237,6 +260,7 @@ the first number of the pair is the width, the second the spacing
                 % \override Glissando.thickness = #2
                 % \override Glissando.minimum-length = #4
 
+                %OKOKOKOK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 \set glissandoMap = #'((0 . 0 ) (1 . 1) (2 . 2) (3 . 3))
                 <
                 \hide e 
@@ -321,10 +345,11 @@ the first number of the pair is the width, the second the spacing
         \autoBeamOff   
         \clef bass       
         \stemUp
-        \crossStaff 
+        
         {
 
-            \xNotesOn
+          \crossStaff 
+        \xNotesOn
         a8 r8 a,4 a,8 
         r8 r4
         \bar "!"

@@ -5,22 +5,31 @@
 			"path": "."
 		},
 		{
-			"path": "../calliope"
+			"path": "/Users/rwest/Code/mirrorecho/calliope"
 		},
 		{
-			"path": "../abjad-intensive"
+			"path": "/Users/rwest/Code/mirrorecho/rwestmusic-imaginary"
 		},
 		{
-			"path": "../rwestmusic-copper"
+			"path": "/Users/rwest/Code/mirrorecho/abjad-intensive"
 		},
 		{
-			"path": "../supercollider-workshop"
+			"path": "/Users/rwest/Code/mirrorecho/rwestmusic-copper"
 		},
 		{
-			"path": "../superstudio"
+			"path": "/Users/rwest/Code/mirrorecho/supercollider-workshop"
 		},
 		{
-			"path": "../rwestmusic-ghost"
+			"path": "/Users/rwest/Code/mirrorecho/superstudio"
+		},
+		{
+			"path": "/Users/rwest/Code/mirrorecho/rwestmusic-ghost"
+		},
+		{
+			"path": "/Users/rwest/Code/mirrorecho/rwestmusic-operating-theater"
+		},
+		{
+			"path": "/Users/rwest/Code/mirrorecho/rwestmusic-folktale"
 		}
 	],
 	"virtualenv": "/Users/rwest/Code/venvs/rwestmusic-imaginary"
