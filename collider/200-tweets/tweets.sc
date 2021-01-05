@@ -18,6 +18,9 @@ play{a=SinOsc.ar(LFNoise0.ar(10).range(100,1e4),0,0.05)*Decay.kr(Dust.kr(1));GVe
 play{ar(Splay,ar(RLPF,ar(a=VarSaw,ar(a,(c=4/4/4)/4,c,c).max*4+44,4,ar(a,[4,4/44,c*4]).abs),44*44,c)*ar(Line,dur:4)+ar(PitchShift,ar(CombC,b=ar(a,f=ar(a,d=c*4/44.4,c,-4.sin,4).max.ceil*44+44,4,ar(a,[44-4,4,44+4]/4.44))/4,c,c*4/f+d),4-c,[4+4+4,4*4,4+4],c,c,c+c))/4}//
 
 // --------------------------------------------------------------------------------------------------
+// RECORDING EXAMPLE:
+s.record("".resolveRelative ++ "002-lfsaw-polyrhythms-bounce.aiff", numChannels:2)
+s.stopRecording;
 
 {|i|j=i+2/100;j.postln;}!12
 
@@ -30,12 +33,66 @@ play{FreeVerb2.ar(*Splay.ar({|i|Ringz.ar(Decay.ar(Impulse.ar(r=i+1/4),1/r,Crackl
 play{FreeVerb2.ar(*Splay.ar({|i|Formlet.ar(Impulse.ar(r=i+1/8),LFSaw.ar(f=r/(i+2*3),1)+2*3**4,0.01,1/r/2)}!16,0.4))}
 
 // Pulse waves controlling freq:
+(
+f = 10.collect{ExpRand(300, 20000)};
+)
+
+(
+play{
+	Splay.ar(
+		{
+			|i|
+			f={exprand(99,4000)}!a=14;
+			f = f ++ (f*2) ++ (f*i);
+			g = f*(LFPulse.ar(i/2, 0, 1/i, 1/a)+2);
+			t = (SinOsc.kr(1/i)+1.4)!a;
+			DynKlank.ar(`[g, nil, t],
+				// LFPulse.ar(i/2, 0, 1/i, 1/a)
+				LFSaw.ar(i/8)/a +
+				Dust.ar(1)/9
+				// Crackle.ar(2.0, 1/a/i)
+			);
+		}!8,0.4
+	)
+}
+)
+
+Impulse
+
+
+
 
 
 // variant of the above:
 g=2*f=88;l=LFPulse;play{y=kr(XLine,1,6,f);ar(CombC,ar(Saw,ar(l,1!2)*f+f+(ar(l,y/9)*f+g)+(ar(l,y)*f)+(ar(l,1/y)*g)+(ar(l,y*2)*g))*(6-y)/22)}
 
+(1..4).choose;
 
+// ringing pulses
+(
+n=(1..24);
+f=99;
+play{
+	Splay.ar(
+	n.scramble.collect({|i|
+	Ringz.ar(LFPulse.ar(n.choose, 0, 0.1*n.choose)
+				+Crackle.ar(2.0,0.2)
+				*(Crackle.ar(2.0,0.1)+0.4)
+				*LFSaw.ar(n.choose/(i+1*8))
+				,
+				f*i,0.4,0.2)
+	}),0.8);
+}
+)
+
+(
+play{
+	{|f|
+		{|i|ar(SinOsc,440*(f+1)*((i/9)+1) )*0.1}!1
+		*ar(LFSaw, 0.2 * (f+1))
+	}!8
+}
+)
 
 
 
@@ -82,7 +139,6 @@ play{y=kr(XLine,1,6,f);
 
 play{SinOsc(440)}
 
-FreeVerb.ar(7-
 
 play{Resonz.ar(Crackle.ar(2!2),88,1/999,22);}
 
@@ -110,71 +166,21 @@ play{ PinkNoise.ar(0.6!2) }
 
 play{PinkNoise.ar!2}
 
-SinOsc.ar(
+	f=1;
+	f=f*2;
+	(
+		f=220;l=LFPulse;play{
+			Splay.ar(
+				{|i|
+					Saw.ar(
+						Lag.kr(l.kr(i/8,i-1/2),3/i)*f*i+f
+					)*l.kr(1/8/i,0.5)
+				}!16, 0.4, 0.1
+			)
+		}
+	)
 
-Synth(\aa, (freq:220).asPairs);
-
-	8**2*12;
-
-// magic counterpoint
-
-{|i|i.postln;}!14;
-
-Array
-
-1/(1..8)+1.ar;
-
-(1)/(4..8)+1
-
-(1..3);
-
-{1-LFSaw.ar(440)}.plot;
-
-0.25*0
-
-i=3;
-t=2**i*0.5;
-
-{|i| t=2**i; (t)/((1..4)+i)}!5;
-
-Dust // for amp?
-
-(
-
-
-)
-PingPong
-CombL
-
-
-f= {arg ...yo;  yo.postln;  };
-f.value("ja", "KKL");
-
-play{Formlet.ar(Impulse.ar(1),66,0.02,1)}
-
-
-{Crackle.ar(2)/2}.plot
-
-[1,2,3,4]
-
-12.collect{|i|(i+2*3)}
-12.collect{|i|(i+2**2)}
-
-f=1;
-f=f*2;
-
-f=220;l=LFPulse;play{
-Splay.ar(
-{|i|
-Saw.ar(
-Lag.kr(l.kr(i/8,i-1/2),3/i)*f*i+f
-)*l.kr(1/8/i,0.5)
-}!16, 0.4, 0.1
-)
-}
-)
-
-(
+	(
 f=220;
 l=LFPulse;
 play{
